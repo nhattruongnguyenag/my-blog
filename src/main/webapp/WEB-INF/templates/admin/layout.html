@@ -1,0 +1,26 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/resources/admin/css/admin-styles.css}">
+</head>
+
+<body>
+<div class="grid grid-cols-12 gap-1 admin-wrapper">
+    <div th:replace="admin/fragments/header::header"></div>
+    <div class="main-area-wrapper col-span-12 lg:col-span-10">
+        <div th:replace="admin/fragments/top-navigation::top-navigation"></div>
+        <div class="admin-main-content">
+            <div layout:fragment="content"></div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

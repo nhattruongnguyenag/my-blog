@@ -1,0 +1,90 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.main-content .post-details {
+    max-width: 992px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.main-content .post-details h1 {
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 1.5;
+    padding-bottom: 16px;
+}
+
+.main-content .post-details p {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    line-height: 2;
+    font-size: 16px;
+}
+
+.main-content .post-details img {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.main-content .tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.main-content .tags li a {
+    display: inline-block;
+    padding: 7px 20px;
+    color: #002744;
+    border: 1px solid #002744;
+    border-radius: 999px;
+    margin-right: 10px;
+}
+
+.main-content .tags li a:hover {
+    background: #002744;
+    color: #fff;
+}
+
+.main-content .relate-tags-title,
+.main-content .relate-posts-title {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.main-content .relate-posts li a {
+    display: block;
+    color: #008A8F;
+    margin-top: 20px;
+}
+
+.user-actions {
+    display: flex;
+    margin-top: 15px;
+}
+
+.user-actions li button {
+    color: #005F7C;
+    margin-right: 15px;
+}
+
+.user-actions li button i {
+    margin-right: 5px;
+}
+
+@media (min-width: 992px) {
+    .main-content .post-details {
+        margin-top: 120px;
+        margin-bottom: 40px;
+        padding: 10px 40px;
+    }
+}

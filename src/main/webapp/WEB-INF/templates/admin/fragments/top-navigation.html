@@ -1,0 +1,16 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="top-navigation" class="top-navigation-bar">
+    <div class="page-title">Bài viết</div>
+
+    <label for="dropdown-menu-toggle" class="user-info">
+        <img th:src="@{/resources/admin/img/img.jpg}" alt="avatar">
+    </label>
+
+    <input id="dropdown-menu-toggle" type="checkbox" />
+
+    <ul class="dropdown-menu">
+        <li class="user-login-info">Xin chào, Trường Nguyễn</li>
+        <li><a th:href="@{/admin/user-profile}">Hồ sơ</a></li>
+        <li><a th:href="@{/admin/change-password}">Thay đổi mật khẩu</a></li>
+        <li><a class="menu-item-logout" href="#">Đăng xuất</a></li>
+    </ul>
+</div>

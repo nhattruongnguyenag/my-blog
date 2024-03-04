@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<ul th:fragment="pagination" class="pagination">
+    <li>
+        <a th:class="${currentPage == 1} ? disabled : ''" th:href="@{('page-' + ${currentPage - 1})}">
+            <i class="fas fa-angle-double-left"></i>
+        </a>
+    </li>
+    <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">
+        <th:block th:if="${i <= 5 || i > currentPage - 1 && i <= currentPage + 2 || i == totalPages}">
+            <li>
+                <a th:class="${currentPage == i} ? active : ''" th:href="@{('page-' + ${i})}">[(${i})]</a>
+            </li>
+        </th:block>
+        <th:block th:unless="${i <= 5 || i > currentPage - 1 && i <= currentPage + 2 || i == totalPages}"
+                  th:if="${i == 6 || i == currentPage + 3}">
+            <li>
+                <a class="disabled">...</a>
+            </li>
+        </th:block>
+        </li>
+    </th:block>
+    <li>
+        <a th:class="${currentPage >= totalPages} ? disabled : ''" th:href="@{('page-' + ${currentPage + 1})}">
+            <i class="fas fa-angle-double-right"></i>
+        </a>
+    </li>
+</ul>
+</body>
+</html>

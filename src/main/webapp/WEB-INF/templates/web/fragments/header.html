@@ -1,0 +1,38 @@
+<header xmlns:th="http://www.thymeleaf.org"
+        class="bg-header" th:fragment="header">
+    <div class="container mx-auto">
+        <div class="top-header">
+            <div class="logo">
+                <a href="/">
+                    <img th:src="@{/resources/web/img/logo-website.jpg}" alt="logo">
+                    <span>Blog của Trường</span>
+                </a>
+            </div>
+
+            <div class="navigation">
+                <label for="toggle-menu" class="btn-toggle-menu">
+                    <i class="fas fa-bars"></i>
+                </label>
+
+                <input id="toggle-menu" type="checkbox"/>
+
+                <ul class="nav-menu">
+                    <li><a href="/">Trang chủ</a></li>
+                    <li>
+                        <a href="#" class="toggle-sub-menu">
+                                <span>Bài viết
+                                    <i class="fas fa-caret-up"></i>
+                                    <i class="fas fa-caret-down"></i>
+                                </span>
+                        </a>
+                        <ul class="nav-sub-menu">
+                            <li><a href="#">Lập Trình</a></li>
+                            <li><a href="#">Tiếng Nhật</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Về Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

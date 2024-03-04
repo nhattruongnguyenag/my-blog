@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="admin/layout">
+<head>
+    <title>Bài viết</title>
+</head>
+
+<body>
+
+<div id="post-table"
+     layout:fragment="content">
+    <div class="post-manager-content">
+        <table class="blog-table">
+            <thead>
+            <th width="40%">Tiêu đề</th>
+            <th>Tác giả</th>
+            <th>Danh mục</th>
+            <th>Thẻ</th>
+            <th>Lượt xem</th>
+            <th>Ngày tạo</th>
+            <th></th>
+            </thead>
+            <tbody>
+            <tr>
+                <td width="40%" class="title">Lorem ipsum dolor sit amet consectetur adipisicing elit
+                    <div class="post-setting">
+                        <button class="btn-post-setting btn-edit">Chỉnh sửa</button>
+                        <button class="btn-post-setting btn-view">Xem</button>
+                        <button class="btn-post-setting btn-trash">Thùng rác</button>
+                    </div>
+                </td>
+                <td>Trường Nguyễn</td>
+                <td>Lập trình, Tiếng Nhật, Khác</td>
+                <td>Lập trình, Tiếng Nhật, Khác</td>
+                <td>0</td>
+                <td>
+                    16/02/2024<br>
+                    Đã đăng
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <ul class="pagination">
+            <li><a href="#">1</a></li>
+            <li><a class="active" href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">...</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+        </ul>
+    </div>
+    <a class="btn-save" th:href="@{/admin/post-edit}">
+        <i class="fas fa-plus"></i>
+    </a>
+</div>
+
+</body>
+</html>

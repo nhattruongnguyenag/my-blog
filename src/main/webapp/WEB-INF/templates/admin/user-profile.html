@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="admin/layout">
+<head>
+    <title>Hồ sơ</title>
+</head>
+<body>
+<div layout:fragment="content" class="user-profile-page">
+    <div class="grid grid-cols-12 gap-1">
+        <div class="col-span-12 lg:col-span-3 avatar">
+            <img th:src="@{/resources/admin/img/img.jpg}" class="avatar" alt="avatar">
+            <label class="custom-file-upload">
+                <input type="file"/>
+                Chọn ảnh
+            </label>
+        </div>
+
+        <div class="col-span-12 lg:col-span-9">
+            <div class="blog-input">
+                <label for="email">Email</label>
+                <input id="email" type="text"/>
+            </div>
+
+            <div class="blog-input">
+                <label for="full-name">Tên người dùng</label>
+                <input id="full-name" type="text"/>
+            </div>
+
+            <div class="operation-btn">
+                <button class="user-profile-save">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

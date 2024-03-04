@@ -1,0 +1,351 @@
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.bg-header {
+    background: #003655;
+    z-index: 999;
+    position:fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.top-header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-header .logo a {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    padding: 10px 10px 10px 0;
+    width: fit-content;
+}
+
+.top-header .logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.top-header .logo span {
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.top-header #toggle-menu {
+    display: none;
+}
+
+.top-header .btn-toggle-menu {
+    position: absolute;
+    color: #fff;
+    width: inherit;
+    top: 30px;
+    transform: translateY(-50%);
+    right: 0;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.top-header #toggle-menu:checked+.nav-menu {
+    display: flex;
+}
+
+.top-header .navigation {
+    background: #005F7C;
+}
+
+.top-header .nav-menu {
+    display: none;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.top-header .nav-menu li a {
+    position: relative;
+    display: block;
+    padding: 9px 20px;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.top-header ul.nav-menu ul.nav-sub-menu li a {
+    position: relative;
+    text-decoration: none;
+}
+
+.top-header ul.nav-menu li a::after,
+.top-header ul.nav-menu ul.nav-sub-menu li a::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    left: 100px;
+    right: 100px;
+    border-bottom: 1px dotted #fff;
+    visibility: hidden;
+}
+
+.top-header ul.nav-menu li a:hover::after,
+.top-header ul.nav-menu ul.nav-sub-menu li a:hover::after {
+    visibility: visible;
+}
+
+.top-header ul.nav-menu ul.nav-sub-menu li a:hover i {
+    text-decoration: none;
+}
+
+.top-header ul.nav-menu li i {
+    margin-left: 5px;
+}
+
+.top-header ul.nav-menu li:hover i.fa-caret-down {
+    display: none;
+}
+
+.top-header ul.nav-menu li:hover i.fa-caret-up {
+    display: inline;
+}
+
+.top-header li a i.fa-caret-up {
+    display: none;
+}
+
+.top-header ul.nav-menu ul.nav-sub-menu {
+    display: none;
+    border-radius: 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.top-header ul.nav-menu li:hover .nav-sub-menu {
+    display: block;
+}
+
+.post-item {
+    margin-top: 50px;
+}
+
+.post-item .post-thumbnail {
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.post-item .post-thumbnail:hover img {
+    transform: scale(1.2);
+}
+
+.post-item .post-thumbnail img {
+    aspect-ratio: 244/144;
+    width: 100%;
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition: 500ms transform;
+}
+
+.post-item h2 {
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.post-item p {
+    margin-top: 5px;
+}
+
+.post-item .more-content {
+    color: #008A8F;
+}
+
+.post-list {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 50px;
+}
+
+.main-content .pagination {
+    margin-top: 60px;
+    margin-left: 10px;
+}
+
+.main-content .pagination li {
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.main-content .pagination li a {
+    display: block;
+    padding: 4px 10px;
+    border: 1px solid #002D4B;
+    border-radius: 5px;
+}
+
+.main-content .pagination li a:hover,
+.main-content .pagination li a.active {
+    background: #008CAF;
+    border: 1px solid #008CAF;
+    color: #fff;
+}
+
+.main-content .pagination li a i {
+    font-size: 12px;
+}
+
+.main-content .pagination li a.disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.6;
+}
+
+.web-footer {
+    color: #fff;
+    background: #005F7C;
+    text-align: center;
+    font-weight: 500;
+    padding: 15px;
+    width: 100%;
+    margin-top: 100px;
+    font-size: 16px;
+}
+
+#scroll-to-top {
+    position: fixed;
+    top: 70%;
+    right: 15px;
+    border-radius: 999px;
+    width: 35px;
+    height: 35px;
+    border: 1px solid #8EDB7B;
+    font-weight: bold;
+    background: #8EDB7B;
+}
+
+#scroll-to-top:hover {
+    background: #fff;
+}
+
+#scroll-to-top i {
+    transform: translateY(-5px);
+}
+
+@media (min-width: 576px) {
+    .top-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .top-header .navigation {
+        flex: 1;
+        background: none;
+    }
+
+    .top-header ul.nav-menu {
+        display: flex;
+        flex-direction: row;
+        height: 70px;
+        padding: 0;
+        justify-content: flex-end;
+    }
+
+    .top-header .btn-toggle-menu {
+        display: none;
+    }
+
+    .top-header ul.nav-menu li {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .top-header ul.nav-menu li a {
+        text-transform: none;
+    }
+
+    .top-header ul.nav-menu ul.nav-sub-menu {
+        z-index: 999;
+        position: absolute;
+        top: calc(100% - 1px);
+        left: 15px;
+        background: #fff;
+        padding: 5px;
+        box-shadow: 0px 1px 10px rgba(0, 0, 0, .3);
+        border-top: 2px solid #008A8F;
+    }
+
+    .top-header ul.nav-menu ul.nav-sub-menu li a {
+        color: #000;
+        white-space: nowrap;
+    }
+
+    .top-header ul.nav-menu li a::after,
+    .top-header ul.nav-menu ul.nav-sub-menu li a::after {
+        left: 17px;
+        right: 17px;
+    }
+
+    .top-header ul.nav-menu ul.nav-sub-menu li a::after {
+        border-bottom: 1px dotted #000;
+    }
+
+    .container {
+        max-width: 768px;
+    }
+
+    .post-list {
+       margin-top: 30px;
+       margin-bottom: 20px;
+    }
+
+    .main-content .pagination {
+        margin-top: 100px;
+    }
+
+    .web-footer {
+        margin-top: 200px;
+    }
+
+    .post-item {
+        margin-top: 100px;
+    }
+}
+
+@media (min-width: 720px) {
+    .top-header .nav-menu {
+        margin-right: -20px;
+    }
+
+    .container {
+        max-width: 768px;
+    }
+
+    .bg-header {
+        position:relative;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .top-header .nav-menu {
+        margin-right: -10px;
+    }
+
+    .container {
+        max-width: 1280px;
+    }
+}

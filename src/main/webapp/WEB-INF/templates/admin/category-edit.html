@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="admin/layout">
+<head>
+    <title>Category Edit</title>
+</head>
+<body>
+<form
+        th:action="@{/admin/categories}"
+        th:object="${category}"
+        method="POST"
+        layout:fragment="content"
+        class="post-form-edit">
+    <div class="blog-input">
+        <label for="post-title">Tên danh mục</label>
+        <input id="post-title" type="text" th:field="*{name}" th:value="${default}"/>
+    </div>
+
+    <div class="operation-btn">
+        <button type="submit" class="post-publish-btn">Thêm</button>
+    </div>
+</form>
+</body>
+</html>

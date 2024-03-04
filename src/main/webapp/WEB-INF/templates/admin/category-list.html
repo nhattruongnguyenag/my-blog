@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="admin/layout">
+<head>
+    <title>Danh mục</title>
+</head>
+<body>
+<div layout:fragment="content"
+     id="category-table">
+    <div class="post-manager-content">
+        <table class="blog-table">
+            <thead>
+            <th width="60%">Tên danh mục</th>
+            <th width="20%">Ngày tạo</th>
+            <th width="20%">Số bài viết</th>
+            </thead>
+            <tbody>
+            <tr class=" w-full">
+                <td width="500px" class="title">
+                    Lập trình
+                    <div class="post-setting">
+                        <button class="btn-post-setting btn-edit">Chỉnh sửa</button>
+                        <button class="btn-post-setting btn-view">Xem bài viết</button>
+                        <button class="btn-post-setting btn-trash">Thùng rác</button>
+                    </div>
+                </td>
+                <td width="20%">0</td>
+                <td width="20%">16/02/2024</td>
+            </tr>
+            </tbody>
+        </table>
+        <ul class="pagination">
+            <li><a href="#">1</a></li>
+            <li><a class="active" href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">...</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+        </ul>
+    </div>
+    <a class="btn-save" th:href="@{/admin/category-edit}">
+        <i class="fas fa-plus"></i>
+    </a>
+</div>
+</body>
+</html>

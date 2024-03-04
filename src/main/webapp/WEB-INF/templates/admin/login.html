@@ -1,0 +1,54 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <link rel="stylesheet" th:href="@{/resources/admin/css/login.css}">
+    <title>Đăng nhập</title>
+</head>
+
+<body>
+    <div class="login-wrapper">
+        <div class="login-form">
+            <div class="login-logo">
+                <img th:src="@{/resources/web/img/logo-website.jpg}" alt="logo">
+                <span>Trạm dừng chân Blog</span>
+            </div>
+
+            <div class="login-form-input">
+                <label for="username">
+                    Tên đăng nhập
+                </label>
+                <input id="username" type="text">
+            </div>
+
+            <div class="login-form-input">
+                <label for="password">
+                    Mật khẩu
+                </label>
+                <div class="password-input-wrapper">
+                    <input id="password" type="password">
+                    <span id="toggle-password" class="far fa-eye"></span>
+                </div>
+            </div>
+
+            <div class="save-login-info-wrapper">
+                <label for="save-info">
+                    <input type="checkbox" name="save-info" id="save-info">
+                    <span class="checkmark"></span>
+                    <span>Lưu thông tin</span>
+                </label>
+            </div>
+
+            <button class="btn-submit" type="submit">Đăng nhập</button>
+        </div>
+    </div>
+    <script th:src="@{/resources/admin/js/login.js}"></script>
+    <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
+</body>
+
+</html>

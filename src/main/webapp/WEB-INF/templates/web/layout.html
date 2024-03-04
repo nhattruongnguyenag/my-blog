@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <link rel="stylesheet" th:href="@{/resources/web/css/home-page.css}" />
+    <link rel="stylesheet" th:href="@{/resources/web/css/post-details.css}">
+</head>
+
+<body>
+<div th:replace="web/fragments/header :: header"></div>
+<div class="main-content container mx-auto">
+    <div layout:fragment="content"></div>
+</div>
+
+<button id="scroll-to-top">
+    <i class="fas fa-angle-up"></i>
+</button>
+
+<div th:replace="web/fragments/footer :: footer"></div>
+<script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
+<script th:src="@{/resources/web/js/app.js}"></script>
+</body>
+
+</html>
