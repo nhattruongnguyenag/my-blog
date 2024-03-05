@@ -8,17 +8,19 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home page</title>
+    <title>Category Post</title>
 </head>
 <body>
 <div id="home-page">
     <div class="post-list">
+        <h1 class="category-title" th:text="${category.name}"/>
+
         <div class="grid grid-cols-12 grap-1 sm:gap-12 lg:grap-14">
-            <div th:replace="web/fragments/post-list :: post-list(posts=${postPage.content})"/>
+            <div th:replace="web/fragments/post-list :: post-list(posts=${category.posts})"/>
         </div>
     </div>
 
-    <div th:replace="web/fragments/pagination::pagination(totalPages=${postPage.totalPages}, currentPage=${postPage.pageable.pageNumber}, urlPrefix=${'/page-'})"></div>
+    <div th:replace="web/fragments/pagination::pagination(totalPages=${category.posts.totalPages}, currentPage=${category.posts.pageable.pageNumber}, urlPrefix=${('/c/' + category.slug + '/page-')})"></div>
 </div>
 </body>
 </html>

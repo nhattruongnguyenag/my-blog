@@ -2,6 +2,7 @@ package com.nhattruongnguyen.repository.impl;
 
 import com.nhattruongnguyen.entity.PostEntity;
 import com.nhattruongnguyen.repository.CustomizedPostRepository;
+import com.nhattruongnguyen.utils.CommonUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -20,19 +21,43 @@ public class CustomizedPostRepositoryImpl implements CustomizedPostRepository {
 
     @Override
     public Page<PostEntity> findByConditions(Map<String, Object> params, Pageable pageable) {
-        StringBuilder completeQuery = new StringBuilder("SELECT p from PostEntity p");
+        StringBuilder finalQuery = new StringBuilder("SELECT p from PostEntity p");
         StringBuilder countQuery = new StringBuilder("SELECT count(p) from PostEntity p");
-        completeQuery.append("\nORDER BY p.updatedAt");
+        StringBuilder whereQuery = new StringBuilder();
+        StringBuilder joinQuery = new StringBuilder();
 
-        int offset = pageable.getPageSize() * (pageable.getPageNumber() - 1);
+        buildJoinQuery(params, joinQuery, whereQuery);
+
+        finalQuery.append(joinQuery);
+        countQuery.append(joinQuery);
+        finalQuery.append("\nWHERE 1 = 1");
+        countQuery.append("\nWHERE 1 = 1");
+        finalQuery.append(whereQuery);
+        countQuery.append(whereQuery);
+        finalQuery.append("\nORDER BY p.updatedAt");
+
+        int offset = 1;
+
+        if (pageable.getPageNumber() > 0) {
+            offset = pageable.getPageSize() * (pageable.getPageNumber() - 1);
+        }
 
         long totalPage = entityManager.createQuery(countQuery.toString(), Long.class).getSingleResult() / pageable.getPageSize();
 
-        List<PostEntity> posts =  entityManager.createQuery(completeQuery.toString(), PostEntity.class)
+        List<PostEntity> posts =  entityManager.createQuery(finalQuery.toString(), PostEntity.class)
                 .setFirstResult(offset).setMaxResults(pageable.getPageSize()).getResultList();
 
         Page<PostEntity> page = new PageImpl<>(posts, pageable, totalPage);
 
         return page;
+    }
+
+    private void buildJoinQuery(Map<String, Object> params, StringBuilder joinQuery, StringBuilder whereQuery){
+        String category = CommonUtils.getParams("category", params, String.class);
+
+        if (category != null) {
+            joinQuery.append("\nJOIN p.categories as c");
+            whereQuery.append("\nAND c.slug = ").append("'").append(category).append("'");
+        }
     }
 }

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="web/layout"
+      layout:fragment="content">
+<head>
+    <meta charset="UTF-8">
+    <title>Lỗi !!!</title>
+    <link rel="stylesheet" th:href="@{/resources/web/css/error-page.css}">
+</head>
+<body>
+<div class="error-page">
+    <div class="error-details">Ồ, có vẻ như trang bạn yêu cầu không tồn tại.<br>
+        Làm 1 ly cà phê và <a href="/">về trang chủ</a> thôi
+        nào
+        <i class="far fa-kiss-beam"></i>
+    </div>
+    <img th:src="@{/resources/web/img/ly-cafe-vector.jpg}" alt="coffee">
+</div>
+</body>
+</html>

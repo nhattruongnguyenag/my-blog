@@ -19,18 +19,19 @@
                 <ul class="nav-menu">
                     <li><a href="/">Trang chủ</a></li>
                     <li>
-                        <a href="#" class="toggle-sub-menu">
+                        <a class="toggle-sub-menu cursor-pointer">
                                 <span>Bài viết
                                     <i class="fas fa-caret-up"></i>
                                     <i class="fas fa-caret-down"></i>
                                 </span>
                         </a>
                         <ul class="nav-sub-menu">
-                            <li><a href="#">Lập Trình</a></li>
-                            <li><a href="#">Tiếng Nhật</a></li>
+                            <li th:each="item : ${menu}">
+                                <a th:href="@{('/' + ${item.slug})}" th:text="${item.name}" />
+                            </li>
                         </ul>
                     </li>
-                    <li><a href="#">Về Blog</a></li>
+                    <li><a href="/about-blog">Về Blog</a></li>
                 </ul>
             </div>
         </div>

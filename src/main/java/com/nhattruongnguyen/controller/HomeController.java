@@ -3,6 +3,8 @@ package com.nhattruongnguyen.controller;
 import com.nhattruongnguyen.config.SystemConstant;
 import com.nhattruongnguyen.dto.response.PostSearchResponseDTO;
 import com.nhattruongnguyen.service.PostService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,11 +25,8 @@ public class HomeController {
 
     @GetMapping({"/", "/page-{page}", "/page-{page}/"})
     public String homePage(@PathVariable(value = "page", required = false) Integer page, Model model) {
-        if (page == null || page <= 0) {
-            page = 1;
-        }
         Page<PostSearchResponseDTO> postPage
-                = postService.findByConditions(new HashMap<>(), PageRequest.of(page, SystemConstant.POST_LIMIT_PAGE));
+                = postService.findByConditions(new HashMap<>(), PageRequest.of(page != null ? page : 1, SystemConstant.POST_LIMIT_PAGE));
         model.addAttribute("postPage", postPage);
         return "web/home-page";
     }

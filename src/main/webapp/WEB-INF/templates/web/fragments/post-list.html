@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Post List</title>
+</head>
+<body>
+<div th:fragment="post-list" th:each="post : ${posts}" class="post-item col-span-12 md:col-span-6 lg:col-span-3">
+    <div class="post-thumbnail"><a th:href="@{(${'/' + post.slug})}">
+        <img th:src="${post.thumbnail}"
+             alt="post-thumbnail">
+    </a></div>
+    <a  th:href="@{(${'/' + post.slug})}" class="title">
+        <h2 th:text="${post.title}"></h2>
+
+    </a>
+    <a th:href="@{(${'/' + post.slug})}" class="description">
+        <p><span th:text="${post.description}"></span><span class="more-content">&nbsp;[...]</span></p>
+    </a>
+</div>
+</body>
+</html>

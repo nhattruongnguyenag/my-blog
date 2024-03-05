@@ -1,0 +1,25 @@
+.main-content .about-blog h2 {
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 1.5;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.main-content .about-blog p {
+    font-size: 16px;
+    line-height: 2;
+}
+
+.main-content .about-blog {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+@media (min-width: 992px) {
+     .main-content .about-blog {
+        padding-left: 120px;
+        padding-right: 120px;
+    }
+}

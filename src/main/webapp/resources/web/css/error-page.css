@@ -1,0 +1,22 @@
+.main-content .error-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 150px);
+}
+
+.main-content .error-page .error-details {
+    margin-top: 80px;
+}
+
+.main-content .error-page .error-details a {
+    color: #008A8F;
+    font-weight: 500;
+}
+
+.main-content .error-page img {
+    margin-top: 40px;
+    display: block;
+    width: 200px;
+}

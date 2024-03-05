@@ -8,14 +8,16 @@
     <title>Trang chủ</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
-    <link rel="stylesheet" th:href="@{/resources/web/css/home-page.css}" />
+    <link rel="stylesheet" th:href="@{/resources/web/css/styles.css}" />
     <link rel="stylesheet" th:href="@{/resources/web/css/post-details.css}">
 </head>
 
 <body>
 <div th:replace="web/fragments/header :: header"></div>
-<div class="main-content container mx-auto">
-    <div layout:fragment="content"></div>
+<div class=" container mx-auto">
+    <div class="main-content">
+        <div layout:fragment="content"></div>
+    </div>
 </div>
 
 <button id="scroll-to-top">

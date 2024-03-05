@@ -11,17 +11,17 @@
 
 <ul th:fragment="pagination" class="pagination">
     <li>
-        <a th:class="${currentPage == 1} ? disabled : ''" th:href="@{('page-' + ${currentPage - 1})}">
+        <a th:class="${currentPage == 1} ? disabled : ''" th:href="@{(${urlPrefix} + ${currentPage - 1})}">
             <i class="fas fa-angle-double-left"></i>
         </a>
     </li>
     <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">
-        <th:block th:if="${i <= 5 || i > currentPage - 1 && i <= currentPage + 2 || i == totalPages}">
+        <th:block th:if="${i > 0 && (i <= 5 || i > currentPage - 1 && i <= currentPage + 2 || i == totalPages)}">
             <li>
-                <a th:class="${currentPage == i} ? active : ''" th:href="@{('page-' + ${i})}">[(${i})]</a>
+                <a th:class="${currentPage == i} ? active : ''" th:href="@{(${urlPrefix} + ${i})}" th:text="${i}"/>
             </li>
         </th:block>
-        <th:block th:unless="${i <= 5 || i > currentPage - 1 && i <= currentPage + 2 || i == totalPages}"
+        <th:block th:unless="${i > 0 && (i <= 5 || i > currentPage - 1 && i <= currentPage + 2 || i == totalPages)}"
                   th:if="${i == 6 || i == currentPage + 3}">
             <li>
                 <a class="disabled">...</a>
@@ -30,7 +30,7 @@
         </li>
     </th:block>
     <li>
-        <a th:class="${currentPage >= totalPages} ? disabled : ''" th:href="@{('page-' + ${currentPage + 1})}">
+        <a th:class="${currentPage >= totalPages} ? disabled : ''" th:href="@{(${urlPrefix} + ${currentPage + 1})}">
             <i class="fas fa-angle-double-right"></i>
         </a>
     </li>

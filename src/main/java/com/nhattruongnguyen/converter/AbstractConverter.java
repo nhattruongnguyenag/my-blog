@@ -15,12 +15,18 @@ public abstract class AbstractConverter<E, D> {
     private ModelMapper modelMapper;
 
     public D toDTO(E entity) {
+        if (entity == null) {
+            return null;
+        }
         Type dtoClass = ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
         D dto = modelMapper.map(entity, dtoClass);
         return dto;
     }
 
     public E toEntity(D dto) {
+        if (dto == null) {
+            return null;
+        }
         Type entityClass = ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         E entity = modelMapper.map(dto, entityClass);
         return entity;
