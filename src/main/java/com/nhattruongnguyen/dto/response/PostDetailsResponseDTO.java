@@ -2,12 +2,17 @@ package com.nhattruongnguyen.dto.response;
 
 import com.nhattruongnguyen.dto.BaseDTO;
 
-public class PostSearchResponseDTO extends BaseDTO {
+import java.util.List;
+
+public class PostDetailsResponseDTO extends BaseDTO {
     private String title;
     private String description;
     private String thumbnail;
+    private String content;
     private String slug;
+    private Long viewCount;
     private Long likeCount;
+    private List<PostSearchResponseDTO> relatedPosts;
 
     public String getTitle() {
         return title;
@@ -33,6 +38,14 @@ public class PostSearchResponseDTO extends BaseDTO {
         this.thumbnail = thumbnail;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public String getSlug() {
         return slug;
     }
@@ -41,11 +54,27 @@ public class PostSearchResponseDTO extends BaseDTO {
         this.slug = slug;
     }
 
+    public Long getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(Long viewCount) {
+        this.viewCount = viewCount;
+    }
+
     public Long getLikeCount() {
         return likeCount;
     }
 
     public void setLikeCount(Long likeCount) {
         this.likeCount = likeCount;
+    }
+
+    public List<PostSearchResponseDTO> getRelatedPosts() {
+        return relatedPosts;
+    }
+
+    public void setRelatedPosts(List<PostSearchResponseDTO> relatedPosts) {
+        this.relatedPosts = relatedPosts;
     }
 }

@@ -4,11 +4,13 @@
       layout:decorate="web/layout"
       layout:fragment="content">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title th:text="${category.name}"/>
+    <meta name="description" content="Blog của Trường, nơi chia sẻ các quan điểm về cuộc sống, những dấu mốc cá nhân dưới góc nhìn của tác giả">
+    <meta property="og:description" content="Blog của Trường, nơi chia sẻ các quan điểm về cuộc sống, những dấu mốc cá nhân dưới góc nhìn của tác giả" />
+    <meta property='og:image' th:content="${baseUrl + 'logo'}" />
+    <meta property="og:image:width" content="250" />
+    <meta property="og:image:height" content="250" />
+    <meta property="og:image:type" content="image/jpeg" />
 </head>
 <body>
 <div id="home-page">
@@ -20,7 +22,7 @@
         </div>
     </div>
 
-    <div th:replace="web/fragments/pagination::pagination(totalPages=${category.posts.totalPages}, currentPage=${category.posts.pageable.pageNumber}, urlPrefix=${('/c/' + category.slug + '/page-')})"></div>
+    <div th:replace="web/fragments/pagination::pagination(totalPages=${category.posts.totalPages}, currentPage=${category.posts.pageable.pageNumber}, urlPrefix=${('/' + category.slug + '/page-')})"></div>
 </div>
 </body>
 </html>

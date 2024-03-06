@@ -9,6 +9,12 @@
 
 .main-content .error-page .error-details {
     text-align: center;
+    padding: 10px;
+}
+
+.main-content .error-page .error-code {
+    font-size: 100px;
+    margin-top: 100px;
 }
 
 .main-content .error-page .error-details a {
@@ -20,6 +26,11 @@
     .main-content .error-page {
         font-size: 25px;
         height: calc(100vh - 140px);
+    }
+
+    .main-content .error-page .error-code {
+        font-size: 100px;
+        margin-top: unset;
     }
 }
 

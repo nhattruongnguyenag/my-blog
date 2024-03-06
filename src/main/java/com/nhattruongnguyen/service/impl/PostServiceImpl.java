@@ -1,6 +1,8 @@
 package com.nhattruongnguyen.service.impl;
 
+import com.nhattruongnguyen.converter.response.PostDetailsResponseConverter;
 import com.nhattruongnguyen.converter.response.PostSearchResponseConverter;
+import com.nhattruongnguyen.dto.response.PostDetailsResponseDTO;
 import com.nhattruongnguyen.dto.response.PostSearchResponseDTO;
 import com.nhattruongnguyen.entity.PostEntity;
 import com.nhattruongnguyen.repository.CustomizedPostRepository;
@@ -19,6 +21,8 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private PostSearchResponseConverter postSearchResponseConverter;
     @Autowired
+    private PostDetailsResponseConverter postDetailsResponseConverter;
+    @Autowired
     private CustomizedPostRepository customizedPostRepository;
     @Autowired
     private PostRepository postRepository;
@@ -29,8 +33,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostSearchResponseDTO findPostBySlug(String slug) {
-        return postSearchResponseConverter.toDTO(postRepository.findBySlug(slug));
+    public PostDetailsResponseDTO findPostBySlug(String slug) {
+        return postDetailsResponseConverter.toDTO(postRepository.findBySlug(slug));
     }
 
     @Override

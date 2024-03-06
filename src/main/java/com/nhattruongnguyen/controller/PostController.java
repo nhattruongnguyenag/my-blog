@@ -2,6 +2,7 @@ package com.nhattruongnguyen.controller;
 
 import com.nhattruongnguyen.config.SystemConstant;
 import com.nhattruongnguyen.dto.response.CategoryResponseDTO;
+import com.nhattruongnguyen.dto.response.PostDetailsResponseDTO;
 import com.nhattruongnguyen.dto.response.PostSearchResponseDTO;
 import com.nhattruongnguyen.entity.PostEntity;
 import com.nhattruongnguyen.exception.PageNotFoundException;
@@ -36,7 +37,7 @@ public class PostController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping({"{slug}","{slug}/", "c/{slug}/page-{page}", "c/{slug}/page-{page}/"})
+    @GetMapping({"{slug}","{slug}/", "{slug}/page-{page}", "{slug}/page-{page}/"})
     private String findPostsByCategory(@PathVariable String slug, @PathVariable(required = false) Integer page, Model model) {
         Map<String, Object> params = new HashMap<>();
         params.put("category", slug);
@@ -52,7 +53,7 @@ public class PostController {
             return "web/category-post";
         }
 
-        PostSearchResponseDTO post = postService.findPostBySlug(slug);
+        PostDetailsResponseDTO post = postService.findPostBySlug(slug);
 
         if (post == null) {
             throw new PageNotFoundException();

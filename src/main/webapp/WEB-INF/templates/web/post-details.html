@@ -3,11 +3,14 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="web/layout" layout:fragment="content">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title th:text="${post.title}"/>
+    <meta name="description" th:content="${post.description}">
+    <meta property="og:description" th:content="${post.description}"/>
+    <meta property='og:image' th:content="${post.thumbnail}" />
+    <meta property="og:image:width" content="250" />
+    <meta property="og:image:height" content="250" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <link rel="stylesheet" th:href="@{/resources/web/css/post-details.css}">
 </head>
 <body>
 <div class="post-details">
@@ -24,21 +27,7 @@
         </li>
     </ul>
 
-    <h2 class="relate-tags-title">Tags</h2>
-
-    <ul class="tags">
-        <li><a href="#">Lập trình</a></li>
-        <li><a href="#">Tiếng nhật</a></li>
-    </ul>
-
-    <h2 class="relate-posts-title">Bài viết liên quan</h2>
-
-    <ul class="relate-posts">
-        <li><a href="#">Chiến hạm Iran lần đầu phóng thử tên lửa đạn đạo đặt trong container</a></li>
-        <li><a href="#">Chiến hạm Iran lần đầu phóng thử tên lửa đạn đạo đặt trong container</a></li>
-        <li><a href="#">Chiến hạm Iran lần đầu phóng thử tên lửa đạn đạo đặt trong container</a></li>
-        <li><a href="#">Chiến hạm Iran lần đầu phóng thử tên lửa đạn đạo đặt trong container</a></li>
-    </ul>
+   <div th:replace="web/fragments/related-post-list::related-post-list(posts=${post.relatedPosts})" />
 </div>
 
 </body>

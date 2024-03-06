@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Related Post List</title>
+</head>
+<body>
+
+<th:block th:fragment="related-post-list">
+    <h2 class="relate-posts-title">Bài viết liên quan</h2>
+
+    <ul class="relate-posts">
+        <li th:each="post: ${posts}">
+            <a th:href="@{(${baseUrl + post.slug})}" th:text="${post.title}"/>
+        </li>
+    </ul>
+</th:block>
+
+</body>
+</html>
