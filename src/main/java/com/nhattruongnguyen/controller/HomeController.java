@@ -30,4 +30,9 @@ public class HomeController {
         model.addAttribute("postPage", postPage);
         return "web/home-page";
     }
+
+    @GetMapping({"/about-blog", "/about-blog/"})
+    public String aboutBlogPage() {
+        return "web/about-blog";
+    }
 }

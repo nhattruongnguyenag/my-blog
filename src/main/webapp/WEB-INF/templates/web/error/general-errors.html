@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${message}" />
+    <link rel="stylesheet" th:href="@{/resources/web/css/error-page.css}">
+</head>
+<body>
+<div class="error-page">
+    <div th:text="${message}"/>
+</div>
+</body>
+</html>

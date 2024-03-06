@@ -52,7 +52,7 @@ public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAwar
     /* **************************************************************** */
 
     @Bean
-    public SpringResourceTemplateResolver templateResolver(){
+    public SpringResourceTemplateResolver templateResolver() {
         // SpringResourceTemplateResolver automatically integrates with Spring's own
         // resource resolution infrastructure, which is highly recommended.
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -68,7 +68,7 @@ public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAwar
     }
 
     @Bean
-    public SpringTemplateEngine templateEngine(){
+    public SpringTemplateEngine templateEngine() {
         // SpringTemplateEngine automatically applies SpringStandardDialect and
         // enables Spring's own MessageSource message resolution mechanisms.
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
@@ -84,7 +84,7 @@ public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAwar
     }
 
     @Bean
-    public ThymeleafViewResolver viewResolver(){
+    public ThymeleafViewResolver viewResolver() {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
         return viewResolver;
@@ -95,6 +95,11 @@ public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAwar
         @GetMapping("favicon.ico")
         String favicon() {
             return "forward:/resources/web/img/favicon.ico";
+        }
+
+        @GetMapping("logo")
+        String logo() {
+            return "forward:/resources/web/img/logo-website.jpg";
         }
     }
 }

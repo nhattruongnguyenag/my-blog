@@ -1,6 +1,7 @@
 package com.nhattruongnguyen.interceptor;
 
 import com.nhattruongnguyen.service.CategoryService;
+import com.nhattruongnguyen.utils.CommonUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class MenuHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         request.setAttribute("menu", categoryService.findAll());
+        request.setAttribute("baseUrl", CommonUtils.getBaseUrl(request));
         return true;
     }
 

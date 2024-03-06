@@ -1,6 +1,16 @@
-<div xmlns:th="http://www.thymeleaf.org"
-     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-     layout:decorate="web/layout" layout:fragment="content" class="post-details">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="web/layout" layout:fragment="content">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${post.title}"/>
+</head>
+<body>
+<div class="post-details">
     <h1 class="title-detail" th:text="${post.title}"/>
 
     <div id="content">[(${post.content})]</div>
@@ -30,3 +40,6 @@
         <li><a href="#">Chiến hạm Iran lần đầu phóng thử tên lửa đạn đạo đặt trong container</a></li>
     </ul>
 </div>
+
+</body>
+</html>

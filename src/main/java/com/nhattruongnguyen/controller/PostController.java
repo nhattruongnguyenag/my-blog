@@ -4,10 +4,16 @@ import com.nhattruongnguyen.config.SystemConstant;
 import com.nhattruongnguyen.dto.response.CategoryResponseDTO;
 import com.nhattruongnguyen.dto.response.PostSearchResponseDTO;
 import com.nhattruongnguyen.entity.PostEntity;
+import com.nhattruongnguyen.exception.PageNotFoundException;
 import com.nhattruongnguyen.repository.CustomizedPostRepository;
 import com.nhattruongnguyen.service.CategoryService;
 import com.nhattruongnguyen.service.PostService;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jdk.jshell.spi.ExecutionControl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -17,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +53,11 @@ public class PostController {
         }
 
         PostSearchResponseDTO post = postService.findPostBySlug(slug);
+
+        if (post == null) {
+            throw new PageNotFoundException();
+        }
+
         model.addAttribute("post", post);
         return "web/post-details";
     }

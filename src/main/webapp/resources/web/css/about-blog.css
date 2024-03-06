@@ -18,8 +18,10 @@
 }
 
 @media (min-width: 992px) {
-     .main-content .about-blog {
-        padding-left: 120px;
-        padding-right: 120px;
+    .main-content .about-blog {
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 250px;
+        padding-right: 250px;
     }
 }
