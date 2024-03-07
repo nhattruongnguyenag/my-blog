@@ -42,4 +42,16 @@ public class PostServiceImpl implements PostService {
         Page<PostEntity> posts = postRepository.findAll(pageable);
         return postSearchResponseConverter.toDTOGroup(postRepository.findAll(pageable).getContent());
     }
+
+    @Override
+    public boolean like(String slug) {
+        PostEntity post = postRepository.findBySlug(slug);
+        if (post != null)  {
+           post.setLikeCount(post.getLikeCount() + 1);
+           if ( postRepository.save(post) != null) {
+               return true;
+           }
+        }
+        return false;
+    }
 }

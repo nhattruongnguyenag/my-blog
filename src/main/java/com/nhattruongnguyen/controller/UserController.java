@@ -15,7 +15,7 @@ public class UserController {
         return "admin/change-password";
     }
 
-    @GetMapping("admin/mb-login")
+    @GetMapping("mb-login")
     public String loginEditPage() {
         return "admin/login";
     }

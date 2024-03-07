@@ -146,7 +146,10 @@
     z-index: 99;
 }
 
-.main-area-wrapper ul.dropdown-menu li a {
+.main-area-wrapper ul.dropdown-menu li a,
+.main-area-wrapper ul.dropdown-menu .btn-logout {
+    width: 100%;
+    text-align: left;
     display: block;
     padding: 4px 10px;
     margin-top: 4px;
@@ -156,13 +159,14 @@
     border-top: 1.5px solid #D7E9E4;
 }
 
-.main-area-wrapper ul.dropdown-menu li a:hover {
+.main-area-wrapper ul.dropdown-menu li a:hover,
+.main-area-wrapper ul.dropdown-menu .btn-logout:hover {
     background: #E6F4F1;
     border-radius: 4px;
     border-bottom: 1px solid none;
 }
 
-.main-area-wrapper ul.dropdown-menu li a.menu-item-logout {
+.main-area-wrapper ul.dropdown-menu li .menu-item-logout {
     border-bottom: none;
 }
 

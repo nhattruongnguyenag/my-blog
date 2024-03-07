@@ -13,4 +13,5 @@ public interface PostService {
     Page<PostSearchResponseDTO> findByConditions(Map<String, Object> params, Pageable pageable);
     PostDetailsResponseDTO findPostBySlug(String slug);
     List<PostSearchResponseDTO> findPaginated(Pageable pageable);
+    boolean like(String slug);
 }

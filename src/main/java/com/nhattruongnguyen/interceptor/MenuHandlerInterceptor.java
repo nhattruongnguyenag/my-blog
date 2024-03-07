@@ -1,5 +1,7 @@
 package com.nhattruongnguyen.interceptor;
 
+import com.nhattruongnguyen.security.CustomizedUserDetails;
+import com.nhattruongnguyen.security.SecurityContext;
 import com.nhattruongnguyen.service.CategoryService;
 import com.nhattruongnguyen.utils.CommonUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +21,10 @@ public class MenuHandlerInterceptor implements HandlerInterceptor {
         request.setAttribute("menu", categoryService.findAll());
         request.setAttribute("baseUrl", CommonUtils.getBaseUrl(request));
         request.setAttribute("currentUrl", request.getRequestURL());
+        CustomizedUserDetails userLogin = SecurityContext.getUserLogin();
+        if (userLogin != null) {
+            request.setAttribute("userLogin", userLogin);
+        }
         return true;
     }
 

@@ -97,6 +97,7 @@ body {
 
 .login-form-input .password-input-wrapper {
     position: relative;
+    width: 100%;
 }
 
 .login-form-input .password-input-wrapper span {

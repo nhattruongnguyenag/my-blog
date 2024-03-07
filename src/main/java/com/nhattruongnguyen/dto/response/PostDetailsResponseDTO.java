@@ -2,6 +2,7 @@ package com.nhattruongnguyen.dto.response;
 
 import com.nhattruongnguyen.dto.BaseDTO;
 
+import java.util.Date;
 import java.util.List;
 
 public class PostDetailsResponseDTO extends BaseDTO {
@@ -12,6 +13,7 @@ public class PostDetailsResponseDTO extends BaseDTO {
     private String slug;
     private Long viewCount;
     private Long likeCount;
+    private Date createdAt;
     private List<PostSearchResponseDTO> relatedPosts;
 
     public String getTitle() {
@@ -68,6 +70,16 @@ public class PostDetailsResponseDTO extends BaseDTO {
 
     public void setLikeCount(Long likeCount) {
         this.likeCount = likeCount;
+    }
+
+    @Override
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public List<PostSearchResponseDTO> getRelatedPosts() {

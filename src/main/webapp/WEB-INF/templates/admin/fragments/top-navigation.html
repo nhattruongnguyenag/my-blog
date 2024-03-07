@@ -2,15 +2,19 @@
     <div class="page-title">Bài viết</div>
 
     <label for="dropdown-menu-toggle" class="user-info">
-        <img th:src="@{/resources/admin/img/img.jpg}" alt="avatar">
+        <img th:src="@{(${userLogin.avatar})}" alt="avatar">
     </label>
 
     <input id="dropdown-menu-toggle" type="checkbox" />
 
     <ul class="dropdown-menu">
-        <li class="user-login-info">Xin chào, Trường Nguyễn</li>
+        <li class="user-login-info">Xin chào, <th:block th:text="${userLogin.name}"/></li>
         <li><a th:href="@{/admin/user-profile}">Hồ sơ</a></li>
         <li><a th:href="@{/admin/change-password}">Thay đổi mật khẩu</a></li>
-        <li><a class="menu-item-logout" href="#">Đăng xuất</a></li>
+        <li>
+            <form class="menu-item-logout" th:action="@{/logout}" method="POST">
+                <button class="btn-logout" type="submit" value="logout">Đăng xuất</button>
+            </form>
+        </li>
     </ul>
 </div>

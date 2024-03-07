@@ -1,14 +1,14 @@
 <header xmlns:th="http://www.thymeleaf.org" th:fragment="header" class="col-span-12 lg:col-span-2 left-side-wrapper">
-    <div class="logo">
+    <a href="/" class="logo">
         <img th:src="@{/resources/web/img/logo-website.jpg}" alt="logo">
         <span>Blog của Trường</span>
-    </div>
+    </a>
 
     <label for="toggle-menu" class="btn-toggle-menu">
         <i class="fas fa-bars"></i>
     </label>
 
-    <input id="toggle-menu" type="checkbox" />
+    <input id="toggle-menu" type="checkbox"/>
 
     <ul class="menu-content">
         <li><a th:href="@{/admin/posts}">Bài viết</a></li>

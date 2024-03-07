@@ -72,13 +72,17 @@
     margin-top: 15px;
 }
 
-.user-actions li button {
+.user-actions li .btn-action {
     color: #005F7C;
-    margin-right: 15px;
+    margin-right: 20px;
 }
 
-.user-actions li button i {
+.user-actions li .btn-action i {
     margin-right: 5px;
+}
+
+.user-actions .like-count {
+    margin-left: 5px;
 }
 
 @media (min-width: 992px) {

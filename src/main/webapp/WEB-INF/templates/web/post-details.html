@@ -1,34 +1,40 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="web/layout" layout:fragment="content">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="web/layout" layout:fragment="content">
+
 <head>
-    <title th:text="${post.title}"/>
+    <title th:text="${post.title}" />
+    <meta property="og:title" th:content="${post.title}" />
     <meta name="description" th:content="${post.description}">
-    <meta property="og:description" th:content="${post.description}"/>
+    <meta property="og:description" th:content="${post.description}" />
     <meta property='og:image' th:content="${post.thumbnail}" />
     <meta property="og:image:width" content="250" />
     <meta property="og:image:height" content="250" />
     <meta property="og:image:type" content="image/jpeg" />
     <link rel="stylesheet" th:href="@{/resources/web/css/post-details.css}">
 </head>
+
 <body>
-<div class="post-details">
-    <h1 class="title-detail" th:text="${post.title}"/>
+    <div class="post-details">
+        <h1 class="title-detail" th:text="${post.title}" />
 
-    <div id="content">[(${post.content})]</div>
+        <div id="content">[(${post.content})]</div>
 
-    <ul class="user-actions">
-        <li>
-            <button><i class="far fa-thumbs-up"></i>Thích</button>
-        </li>
-        <li>
-            <button><i class="fas fa-share"></i>Chia sẻ</button>
-        </li>
-    </ul>
+        <p><span class="mr-3 italic">Ngày đăng: <th:block th:text="${#dates.format(post.createdAt, 'dd/MM/yyyy')}"/></span></p>
 
-   <div th:replace="web/fragments/related-post-list::related-post-list(posts=${post.relatedPosts})" />
-</div>
+        <ul class="user-actions">
+            <li>
+                <a id="facebook-sharer" class="btn-action" target="_blank"
+                    onclick="window.open(this.href, 'targetWindow', `toolbar=no,location=0,left=${(window.innerWidth / 2) - 300},top=50,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250`);return false"
+                    th:href="@{('https://www.facebook.com/sharer/sharer.php?u='+${baseUrl + post.slug})}">
+                    <i class="fas fa-share"></i>Chia sẻ
+                </a>
+            </li>
+        </ul>
+
+        <div th:replace="web/fragments/related-post-list::related-post-list(posts=${post.relatedPosts})" />
+    </div>
 
 </body>
+
 </html>

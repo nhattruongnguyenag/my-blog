@@ -5,6 +5,7 @@
       layout:fragment="content">
 <head>
     <title th:text="${category.name}"/>
+    <meta property="og:title" th:content="${category.name}" />
     <meta name="description" content="Blog của Trường, nơi chia sẻ các quan điểm về cuộc sống, những dấu mốc cá nhân dưới góc nhìn của tác giả">
     <meta property="og:description" content="Blog của Trường, nơi chia sẻ các quan điểm về cuộc sống, những dấu mốc cá nhân dưới góc nhìn của tác giả" />
     <meta property='og:image' th:content="${baseUrl + 'logo'}" />
