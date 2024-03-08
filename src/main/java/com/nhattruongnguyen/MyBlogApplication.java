@@ -1,7 +1,9 @@
 package com.nhattruongnguyen;
 
+import com.nhattruongnguyen.entity.CategoryEntity;
 import com.nhattruongnguyen.entity.RoleEntity;
 import com.nhattruongnguyen.entity.UserEntity;
+import com.nhattruongnguyen.repository.CategoryRepository;
 import com.nhattruongnguyen.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -25,6 +27,9 @@ public class MyBlogApplication {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Autowired
+	private CategoryRepository categoryRepository;
+
 	@EventListener(ApplicationReadyEvent.class)
 	public void doSomethingAfterStartup() {
 		UserEntity userEntity = new UserEntity();
@@ -42,6 +47,9 @@ public class MyBlogApplication {
 		userEntity.setActive(1);
 		userEntity.setPassword(passwordEncoder.encode("123456"));
 //		userRepository.save(userEntity);
+
+		CategoryEntity categoryEntity = new CategoryEntity();
+		categoryEntity.setName("Category 7");
 		System.out.println("hello world, I have just started up");
 	}
 }

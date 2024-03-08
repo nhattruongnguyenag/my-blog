@@ -47,7 +47,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorize ->
                 authorize.requestMatchers("/resources/**").permitAll()
                         .requestMatchers("/logout").authenticated()
-                        .anyRequest().authenticated());
+                        .anyRequest().permitAll());
 
         http.formLogin(form -> form.loginPage("/mb-login")
                 .loginProcessingUrl("/authenticate")
@@ -62,6 +62,8 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/mb-login?logout"));
 
         http.sessionManagement(session -> session.maximumSessions(1).expiredUrl("/mb-login?timeout"));
+
+        http.rememberMe(remember -> remember.rememberMeParameter("remember"));
 
         return http.build();
     }
