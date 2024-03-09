@@ -26,7 +26,7 @@ public class HomeController {
     @GetMapping({"/", "/page-{page}", "/page-{page}/"})
     public String homePage(@PathVariable(value = "page", required = false) Integer page, Model model) {
         Page<PostSearchResponseDTO> postPage
-                = postService.findByConditions(new HashMap<>(), PageRequest.of(page != null ? page : 1, SystemConstant.POST_LIMIT_PAGE));
+                = postService.findByConditions(new HashMap<>(), PageRequest.of(page != null && page > 0 ? page - 1 : 0, SystemConstant.POST_LIMIT_PAGE));
         model.addAttribute("postPage", postPage);
         return "web/home-page";
     }

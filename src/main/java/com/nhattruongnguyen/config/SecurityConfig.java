@@ -47,6 +47,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorize ->
                 authorize.requestMatchers("/resources/**").permitAll()
                         .requestMatchers("/logout").authenticated()
+                        .requestMatchers("/admin/**").hasRole("admin")
                         .anyRequest().permitAll());
 
         http.formLogin(form -> form.loginPage("/mb-login")

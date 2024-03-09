@@ -8,13 +8,17 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+
+import java.util.List;
 
 @Configuration
 @EnableWebMvc
@@ -22,7 +26,6 @@ public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAwar
     private ApplicationContext applicationContext;
     @Autowired
     private MenuHandlerInterceptor menuHandlerInterceptor;
-
 
     public SpringWebConfig() {
         super();

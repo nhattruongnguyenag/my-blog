@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div th:replace="web/fragments/pagination::pagination(totalPages=${category.posts.totalPages}, currentPage=${category.posts.pageable.pageNumber}, urlPrefix=${('/' + category.slug + '/page-')})"></div>
+    <div th:replace="web/fragments/pagination::pagination(totalPages=${category.posts.totalPages}, currentPage=${category.posts.pageable.pageNumber + 1}, urlPrefix=${('/' + category.slug + '/page-')})"></div>
 </div>
 </body>
 </html>

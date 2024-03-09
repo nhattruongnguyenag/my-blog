@@ -5,6 +5,8 @@ import com.nhattruongnguyen.dto.response.CategoryResponseDTO;
 import com.nhattruongnguyen.repository.CategoryRepository;
 import com.nhattruongnguyen.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryResponseDTO> findAll() {
         return categoryResponseConverter.toDTOGroup(categoryRepository.findAll());
+    }
+
+    @Override
+    public Page<CategoryResponseDTO> findAll(Pageable pageable) {
+        return categoryResponseConverter.toDTOPage(categoryRepository.findAll(pageable));
     }
 
     @Override

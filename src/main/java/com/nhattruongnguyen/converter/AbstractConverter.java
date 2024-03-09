@@ -41,6 +41,6 @@ public abstract class AbstractConverter<E, D> {
     }
 
     public Page<D> toDTOPage(Page<E> pageEntity) {
-        return new PageImpl(toDTOGroup(pageEntity.getContent()), pageEntity.getPageable(), pageEntity.getTotalPages());
+        return new PageImpl(toDTOGroup(pageEntity.getContent()), pageEntity.getPageable(), pageEntity.getTotalElements());
     }
 }

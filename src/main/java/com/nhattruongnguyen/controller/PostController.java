@@ -46,7 +46,7 @@ public class PostController {
 
         if (categoryResponse != null) {
             Page<PostSearchResponseDTO> postPage
-                    = postService.findByConditions(params, PageRequest.of(page != null ? page : 1, SystemConstant.POST_LIMIT_PAGE));
+                    = postService.findByConditions(params, PageRequest.of(page != null && page > 0 ? page - 1 : 0, SystemConstant.POST_LIMIT_PAGE));
             categoryResponse.setPosts(postPage);
 
             model.addAttribute("category", categoryResponse);
@@ -64,16 +64,19 @@ public class PostController {
     }
 
 
-    @GetMapping("admin/posts")
-    public String postsPage(Map<String, Object> params, Model model) {
-        params.put("limit", SystemConstant.POST_LIMIT_PAGE);
-//        List<PostSearchResponseDTO> posts = postService.findByConditions(params, PageRequest.of(params.get()));
-//        model.addAttribute("posts", posts);
+    @GetMapping({"admin/posts", "admin/posts/", "admin/posts/page-{page}", "admin/posts/page-{page}/"})
+    public String postsPage(@PathVariable(value = "page", required = false) Integer page, Model model) {
+        StringBuffer stringBuffer = new StringBuffer();
+        Page<PostSearchResponseDTO> postPage
+                = postService.findByConditions(new HashMap<>(), PageRequest.of(page != null && page > 0 ? page - 1 : 0, SystemConstant.POST_LIMIT_ADMIN_PAGE));
+        model.addAttribute("postPage", postPage);
+        model.addAttribute("pageTitle", "Bài viết");
         return "admin/post-list";
     }
 
-    @GetMapping("admin/post-edit")
-    public String postEditPage() {
+    @GetMapping({"admin/post-edit","admin/post-edit/", "admin/post-edit/post-id-{id}", "admin/post-edit/post-id-{id}/"})
+    public String postEditPage(@PathVariable(required = false) Long id, Model model) {
+        model.addAttribute("pageTitle", "Thêm bài viết");
         return "admin/post-edit";
     }
 }

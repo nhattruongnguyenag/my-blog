@@ -16,39 +16,41 @@
             <th width="40%">Tiêu đề</th>
             <th>Tác giả</th>
             <th>Danh mục</th>
-            <th>Thẻ</th>
             <th>Lượt xem</th>
             <th>Ngày tạo</th>
-            <th></th>
             </thead>
             <tbody>
-            <tr>
-                <td width="40%" class="title">Lorem ipsum dolor sit amet consectetur adipisicing elit
+            <tr th:each="post : ${postPage.content}">
+                <td width="40%" class="title">
+                    <label th:for="${'post-setting-toggle-' + post.id}">
+                       <th:block th:text="${post.title}"/>
+                    </label>
+
+                    <input th:id="${'post-setting-toggle-' + post.id}" class="post-setting-toggle" type="checkbox">
+
                     <div class="post-setting">
-                        <button class="btn-post-setting btn-edit">Chỉnh sửa</button>
-                        <button class="btn-post-setting btn-view">Xem</button>
+                        <button class="btn-post-setting btn-edit"><a th:href="@{(${'/admin/post-edit/post-id-' + post.id})}">Chỉnh sửa</a></button>
+                        <button class="btn-post-setting btn-view"><a th:href="@{(${'/' + post.slug})}">Xem</a></button>
                         <button class="btn-post-setting btn-trash">Thùng rác</button>
                     </div>
                 </td>
-                <td>Trường Nguyễn</td>
-                <td>Lập trình, Tiếng Nhật, Khác</td>
-                <td>Lập trình, Tiếng Nhật, Khác</td>
-                <td>0</td>
+                <td th:text="${post.createdBy}"/>
+                <td th:text="${post.categories}"/>
+                <td th:text="${post.viewCount}"/>
                 <td>
-                    16/02/2024<br>
-                    Đã đăng
+                    <span th:text="${#dates.format(post.createdAt, 'dd/MM/yyyy')}"/><br>
+                    <th:block th:if="${post.status == 1}">
+                        Đã đăng
+                    </th:block>
+
+                    <th:block th:unless="${post.status == 1}" th:if="${post.status == 0}">
+                        Nháp
+                    </th:block>
                 </td>
             </tr>
             </tbody>
         </table>
-        <ul class="pagination">
-            <li><a href="#">1</a></li>
-            <li><a class="active" href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-        </ul>
+        <div th:replace="admin/fragments/pagination::pagination(totalPages=${postPage.totalPages}, currentPage=${postPage.pageable.pageNumber + 1}, urlPrefix=${'/admin/posts/page-'})"/>
     </div>
     <a class="btn-save" th:href="@{/admin/post-edit}">
         <i class="fas fa-plus"></i>

@@ -1,5 +1,5 @@
 <div xmlns:th="http://www.thymeleaf.org" th:fragment="top-navigation" class="top-navigation-bar">
-    <div class="page-title">Bài viết</div>
+    <div class="page-title" th:text="${pageTitle}"/>
 
     <label for="dropdown-menu-toggle" class="user-info">
         <img th:src="@{(${userLogin.avatar})}" alt="avatar">

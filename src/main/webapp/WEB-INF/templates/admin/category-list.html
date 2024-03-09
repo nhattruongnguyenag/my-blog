@@ -11,33 +11,32 @@
     <div class="post-manager-content">
         <table class="blog-table">
             <thead>
-            <th width="60%">Tên danh mục</th>
+            <th width="40%">Tên danh mục</th>
             <th width="20%">Ngày tạo</th>
+            <th width="20%">Người tạo</th>
             <th width="20%">Số bài viết</th>
             </thead>
             <tbody>
-            <tr class=" w-full">
-                <td width="500px" class="title">
-                    Lập trình
+            <tr th:each="category : ${categoryPage.content}" class="w-full">
+                <td width="40%" class="title">
+                    <label th:for="${'post-setting-toggle-' + category.id}">
+                        <th:block th:text="${category.name}"/>
+                    </label>
+
+                    <input th:id="${'post-setting-toggle-' + category.id}" class="post-setting-toggle" type="checkbox">
                     <div class="post-setting">
-                        <button class="btn-post-setting btn-edit">Chỉnh sửa</button>
-                        <button class="btn-post-setting btn-view">Xem bài viết</button>
+                        <button class="btn-post-setting btn-edit"><a th:href="@{(${'admin/category-edit/category-id-' + category.id})}">Chỉnh sửa</a></button>
+                        <button class="btn-post-setting btn-view"><a th:href="@{(${'/' + category.slug})}">Xem</a></button>
                         <button class="btn-post-setting btn-trash">Thùng rác</button>
                     </div>
                 </td>
-                <td width="20%">0</td>
-                <td width="20%">16/02/2024</td>
+                <td width="20%"> <th:block th:text="${#dates.format(category.createdAt, 'dd/MM/yyyy')}"/></td>
+                <td width="20%"> <th:block th:text="${category.createdBy}"/></td>
+                <td width="20%" th:text="${category.postCount}"/>
             </tr>
             </tbody>
         </table>
-        <ul class="pagination">
-            <li><a href="#">1</a></li>
-            <li><a class="active" href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-        </ul>
+        <div th:replace="admin/fragments/pagination::pagination(totalPages=${categoryPage.totalPages}, currentPage=${categoryPage.pageable.pageNumber + 1}, urlPrefix=${'/admin/categories/page-'})"/>
     </div>
     <a class="btn-save" th:href="@{/admin/category-edit}">
         <i class="fas fa-plus"></i>

@@ -8,6 +8,9 @@ public class PostSearchResponseDTO extends BaseDTO {
     private String thumbnail;
     private String slug;
     private Long likeCount;
+    private Long viewCount;
+    private Integer status;
+    private String categories;
 
     public String getTitle() {
         return title;
@@ -47,5 +50,29 @@ public class PostSearchResponseDTO extends BaseDTO {
 
     public void setLikeCount(Long likeCount) {
         this.likeCount = likeCount;
+    }
+
+    public Long getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(Long viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getCategories() {
+        return categories;
+    }
+
+    public void setCategories(String categories) {
+        this.categories = categories;
     }
 }

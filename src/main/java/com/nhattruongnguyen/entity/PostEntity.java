@@ -22,6 +22,8 @@ public class PostEntity extends BaseEntity {
     private Long viewCount;
     @Column(name = "like_count")
     private Long likeCount;
+    @Column
+    private Integer status;
     @ManyToMany(mappedBy = "posts")
     private List<CategoryEntity> categories = new ArrayList<>();
     @ManyToMany(mappedBy = "posts")
@@ -97,5 +99,13 @@ public class PostEntity extends BaseEntity {
 
     public void setTags(List<TagEntity> tags) {
         this.tags = tags;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

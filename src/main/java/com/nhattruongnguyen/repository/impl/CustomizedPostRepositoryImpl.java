@@ -36,13 +36,9 @@ public class CustomizedPostRepositoryImpl implements CustomizedPostRepository {
         countQuery.append(whereQuery);
         finalQuery.append("\nORDER BY p.updatedAt");
 
-        int offset = 1;
+        int offset = pageable.getPageSize() * pageable.getPageNumber();
 
-        if (pageable.getPageNumber() > 0) {
-            offset = pageable.getPageSize() * (pageable.getPageNumber() - 1);
-        }
-
-        long totalPage = entityManager.createQuery(countQuery.toString(), Long.class).getSingleResult() / pageable.getPageSize();
+        long totalPage = entityManager.createQuery(countQuery.toString(), Long.class).getSingleResult();
 
         List<PostEntity> posts =  entityManager.createQuery(finalQuery.toString(), PostEntity.class)
                 .setFirstResult(offset).setMaxResults(pageable.getPageSize()).getResultList();

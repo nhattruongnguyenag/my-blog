@@ -8,6 +8,7 @@ import java.util.List;
 public class CategoryResponseDTO extends BaseDTO {
     private String name;
     private String slug;
+    private Integer postCount = 0;
     private Page<PostSearchResponseDTO> posts;
     public String getName() {
         return name;
@@ -31,5 +32,13 @@ public class CategoryResponseDTO extends BaseDTO {
 
     public void setPosts(Page<PostSearchResponseDTO> posts) {
         this.posts = posts;
+    }
+
+    public Integer getPostCount() {
+        return postCount;
+    }
+
+    public void setPostCount(Integer postCount) {
+        this.postCount = postCount;
     }
 }

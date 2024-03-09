@@ -20,7 +20,7 @@ public class MenuHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         request.setAttribute("menu", categoryService.findAll());
         request.setAttribute("baseUrl", CommonUtils.getBaseUrl(request));
-        request.setAttribute("currentUrl", request.getRequestURL());
+        request.setAttribute("currentUrl", request.getRequestURL().toString());
         CustomizedUserDetails userLogin = SecurityContext.getUserLogin();
         if (userLogin != null) {
             request.setAttribute("userLogin", userLogin);

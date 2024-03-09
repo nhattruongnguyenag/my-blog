@@ -11,9 +11,7 @@
     <input id="toggle-menu" type="checkbox"/>
 
     <ul class="menu-content">
-        <li><a th:href="@{/admin/posts}">Bài viết</a></li>
-        <li><a th:href="@{/admin/categories}">Danh mục</a></li>
-        <li><a th:href="@{/admin/posts}">Nháp</a></li>
-        <li><a th:href="@{/admin/tags}">Thẻ</a></li>
+        <li><a th:with='url=${"/admin/posts"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Bài viết</a></li>
+        <li><a th:with='url=${"/admin/categories"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Danh mục</a></li>
     </ul>
 </header>
