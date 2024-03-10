@@ -1,4 +1,4 @@
-package com.nhattruongnguyen.security;
+package com.nhattruongnguyen.config.security;
 
 import com.nhattruongnguyen.dto.UserDTO;
 import com.nhattruongnguyen.service.UserService;

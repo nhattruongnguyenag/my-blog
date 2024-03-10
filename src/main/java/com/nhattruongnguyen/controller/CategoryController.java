@@ -1,9 +1,8 @@
 package com.nhattruongnguyen.controller;
 
 import com.nhattruongnguyen.config.SystemConstant;
-import com.nhattruongnguyen.dto.request.CategorySaveRequest;
-import com.nhattruongnguyen.entity.CategoryEntity;
-import com.nhattruongnguyen.repository.CategoryRepository;
+import com.nhattruongnguyen.dto.request.CategorySaveRequestDTO;
+import com.nhattruongnguyen.dto.response.CategoryResponseDTO;
 import com.nhattruongnguyen.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -12,9 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Optional;
 
 @Controller
 public class CategoryController {
@@ -30,13 +26,18 @@ public class CategoryController {
 
     @GetMapping({"admin/category-edit", "admin/category-edit/", "admin/category-edit/category-id-{id}", "admin/category-edit/category-id-{id}/"})
     public String categoryEditPage(@PathVariable(required = false) Long id, Model model) {
-        model.addAttribute("category", new CategorySaveRequest());
+        CategoryResponseDTO category = categoryService.findOneById(id);
+        if (category == null) {
+            category = new CategoryResponseDTO();
+        }
+        model.addAttribute("category", category);
         model.addAttribute("pageTitle", "Thêm danh mục");
         return "admin/category-edit";
     }
 
     @PostMapping("admin/categories")
-    public String categorySave(CategorySaveRequest category) {
+    public String categorySave(CategorySaveRequestDTO category) throws Exception {
+        CategoryResponseDTO responseDTO = categoryService.saveOrUpdate(category);
         return "redirect:/admin/categories";
     }
 }

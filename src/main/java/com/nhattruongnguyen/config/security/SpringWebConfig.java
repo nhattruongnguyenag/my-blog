@@ -1,4 +1,4 @@
-package com.nhattruongnguyen.config;
+package com.nhattruongnguyen.config.security;
 
 import com.nhattruongnguyen.interceptor.MenuHandlerInterceptor;
 import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;

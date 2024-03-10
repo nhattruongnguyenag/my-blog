@@ -1,46 +1,86 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="admin/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="admin/layout">
+
 <head>
     <title>Danh mục</title>
 </head>
-<body>
-<div layout:fragment="content"
-     id="category-table">
-    <div class="post-manager-content">
-        <table class="blog-table">
-            <thead>
-            <th width="40%">Tên danh mục</th>
-            <th width="20%">Ngày tạo</th>
-            <th width="20%">Người tạo</th>
-            <th width="20%">Số bài viết</th>
-            </thead>
-            <tbody>
-            <tr th:each="category : ${categoryPage.content}" class="w-full">
-                <td width="40%" class="title">
-                    <label th:for="${'post-setting-toggle-' + category.id}">
-                        <th:block th:text="${category.name}"/>
-                    </label>
 
-                    <input th:id="${'post-setting-toggle-' + category.id}" class="post-setting-toggle" type="checkbox">
-                    <div class="post-setting">
-                        <button class="btn-post-setting btn-edit"><a th:href="@{(${'admin/category-edit/category-id-' + category.id})}">Chỉnh sửa</a></button>
-                        <button class="btn-post-setting btn-view"><a th:href="@{(${'/' + category.slug})}">Xem</a></button>
-                        <button class="btn-post-setting btn-trash">Thùng rác</button>
-                    </div>
-                </td>
-                <td width="20%"> <th:block th:text="${#dates.format(category.createdAt, 'dd/MM/yyyy')}"/></td>
-                <td width="20%"> <th:block th:text="${category.createdBy}"/></td>
-                <td width="20%" th:text="${category.postCount}"/>
-            </tr>
-            </tbody>
-        </table>
-        <div th:replace="admin/fragments/pagination::pagination(totalPages=${categoryPage.totalPages}, currentPage=${categoryPage.pageable.pageNumber + 1}, urlPrefix=${'/admin/categories/page-'})"/>
-    </div>
-    <a class="btn-save" th:href="@{/admin/category-edit}">
-        <i class="fas fa-plus"></i>
-    </a>
-</div>
+<body>
+    <th:block layout:fragment="content">
+        <div class="post-manager-content">
+            <table class="blog-table">
+                <thead>
+                    <th width="40%">Tên danh mục</th>
+                    <th width="20%">Ngày tạo</th>
+                    <th width="20%">Người tạo</th>
+                    <th width="20%">Số bài viết</th>
+                </thead>
+                <tbody>
+                    <tr th:each="category : ${categoryPage.content}" class="w-full">
+                        <td width="40%" class="title">
+                            <label th:for="${'post-setting-toggle-' + category.id}">
+                                <th:block th:text="${category.name}" />
+                            </label>
+
+                            <input th:id="${'post-setting-toggle-' + category.id}" class="post-setting-toggle"
+                                type="checkbox">
+                            <div class="post-setting">
+                                <button class="btn-post-setting btn-edit"><a
+                                        th:href="@{(${'/admin/category-edit/category-id-' + category.id})}">Chỉnh
+                                        sửa</a>
+                                </button>
+                                <button class="btn-post-setting btn-view"><a
+                                        th:href="@{(${'/' + category.slug})}">Xem</a>
+                                </button>
+                                <button th:data-category-id="${category.id}" class="btn-post-setting btn-trash" type="button"
+                                    data-modal-target="popup-modal" data-modal-toggle="popup-modal">Xoá
+                                </button>
+                            </div>
+                        </td>
+                        <td width="20%">
+                            <th:block th:text="${#dates.format(category.createdAt, 'dd/MM/yyyy')}" />
+                        </td>
+                        <td width="20%">
+                            <th:block th:text="${category.createdBy}" />
+                        </td>
+                        <td width="20%" th:text="${category.postCount}" />
+                    </tr>
+                </tbody>
+            </table>
+            <th:block th:replace="admin/fragments/confirm-popup::confirm-popup" />
+            <th:block
+                th:replace="admin/fragments/pagination::pagination(totalPages=${categoryPage.totalPages}, currentPage=${categoryPage.pageable.pageNumber + 1}, urlPrefix=${'/admin/categories/page-'})" />
+        </div>
+        <a class="btn-save" th:href="@{/admin/category-edit}">
+            <i class="fas fa-plus"></i>
+        </a>
+
+        <script>
+            const btnTrashs = document.querySelectorAll('.btn-trash')
+            const btnApproveDelete = document.querySelector('#btn-approve-delete');
+
+            let url = "[[${baseUrl + 'api/admin/categories/'}]]"
+
+            btnTrashs.forEach(btnTrash => {
+                btnTrash.addEventListener('click', function () {
+                    url += `category-id-${this.dataset.categoryId}`
+                })
+            })
+
+            btnApproveDelete.onclick = async () => {
+                const response = await fetch(url, {
+                    method: "DELETE"
+                })
+
+                if (response.status == 200) {
+                    window.location.href = "[[${baseUrl + 'admin/categories'}]]"
+                } else {
+                    window.location.href = "[[${baseUrl + 'admin/categories'}]]?delete-error=1"
+                }
+            }
+        </script>
+    </th:block>
 </body>
+
 </html>

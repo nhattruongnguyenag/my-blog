@@ -1,18 +1,21 @@
-package com.nhattruongnguyen.config;
+package com.nhattruongnguyen.config.security;
 
-import com.nhattruongnguyen.security.CustomizedSuccessHandler;
-import com.nhattruongnguyen.security.CustomizedUserDetailsService;
+import com.nhattruongnguyen.config.security.CustomizedSuccessHandler;
+import com.nhattruongnguyen.config.security.CustomizedUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
-import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 @Configuration
 @EnableWebSecurity
@@ -31,13 +34,18 @@ public class SecurityConfig {
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
         return new CustomizedSuccessHandler();
+    }
+
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return new CustomizedAuthenticationEntryPoint();
     }
 
     @Bean
@@ -65,6 +73,12 @@ public class SecurityConfig {
         http.sessionManagement(session -> session.maximumSessions(1).expiredUrl("/mb-login?timeout"));
 
         http.rememberMe(remember -> remember.rememberMeParameter("remember"));
+
+        http.exceptionHandling(exception -> {
+            exception.authenticationEntryPoint(authenticationEntryPoint());
+        });
+
+        http.csrf(csrfConfig -> csrfConfig.disable());
 
         return http.build();
     }

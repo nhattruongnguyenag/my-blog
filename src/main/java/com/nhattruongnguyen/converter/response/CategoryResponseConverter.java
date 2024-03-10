@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 public class CategoryResponseConverter extends AbstractConverter<CategoryEntity, CategoryResponseDTO> {
     @Override
     public CategoryResponseDTO toDTO(CategoryEntity entity) {
+        if (entity == null) {
+            return null;
+        }
         CategoryResponseDTO dto = super.toDTO(entity);
         if (entity != null && entity.getPosts() != null && entity.getPosts().size() > 0) {
             dto.setPostCount(entity.getPosts().size());
