@@ -35,8 +35,8 @@ public class CategoryController {
         return "admin/category-edit";
     }
 
-    @PostMapping("admin/categories")
-    public String categorySave(CategorySaveRequestDTO category) throws Exception {
+    @PostMapping({"admin/categories", "admin/categories/"})
+    public String categorySave(CategorySaveRequestDTO category) {
         CategoryResponseDTO responseDTO = categoryService.saveOrUpdate(category);
         return "redirect:/admin/categories";
     }

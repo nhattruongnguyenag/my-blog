@@ -3,13 +3,12 @@ package com.nhattruongnguyen.dto.response;
 import com.nhattruongnguyen.dto.BaseDTO;
 import org.springframework.data.domain.Page;
 
-import java.util.List;
-
 public class CategoryResponseDTO extends BaseDTO {
     private String name;
     private String slug;
     private Integer postCount = 0;
-    private Page<PostSearchResponseDTO> posts;
+    private Page<PostResponseDTO> posts;
+
     public String getName() {
         return name;
     }
@@ -26,11 +25,11 @@ public class CategoryResponseDTO extends BaseDTO {
         this.slug = slug;
     }
 
-    public Page<PostSearchResponseDTO> getPosts() {
+    public Page<PostResponseDTO> getPosts() {
         return posts;
     }
 
-    public void setPosts(Page<PostSearchResponseDTO> posts) {
+    public void setPosts(Page<PostResponseDTO> posts) {
         this.posts = posts;
     }
 

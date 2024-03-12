@@ -1,16 +1,17 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="admin/layout">
+      layout:decorate="admin/layout"
+>
 <head>
     <title>Category Edit</title>
 </head>
 <body>
 <form
+        layout:fragment="content"
         th:action="@{/admin/categories}"
         th:object="${category}"
         method="POST"
-        layout:fragment="content"
         class="post-form-edit">
 
     <th:block th:if="${category.id != null}">

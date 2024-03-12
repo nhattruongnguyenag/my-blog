@@ -1,6 +1,7 @@
 package com.nhattruongnguyen.service;
 
 import com.nhattruongnguyen.dto.request.CategorySaveRequestDTO;
+import com.nhattruongnguyen.dto.response.CategoryEditResponseDTO;
 import com.nhattruongnguyen.dto.response.CategoryResponseDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

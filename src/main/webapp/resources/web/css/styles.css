@@ -149,6 +149,7 @@ html {
 
 .post-item .post-thumbnail img {
     aspect-ratio: 244/144;
+    object-fit: cover;
     width: 100%;
     transition-property: transform;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);

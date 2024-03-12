@@ -23,7 +23,7 @@ public class PostEntity extends BaseEntity {
     @Column(name = "like_count")
     private Long likeCount;
     @Column
-    private Integer status;
+    private Integer status = 0;
     @ManyToMany(mappedBy = "posts")
     private List<CategoryEntity> categories = new ArrayList<>();
     @ManyToMany(mappedBy = "posts")

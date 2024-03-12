@@ -20,4 +20,5 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
             "\n group by p1.slug, p2.slug" +
             "\n order by p2.id desc limit 5", nativeQuery = true)
     List<PostEntity> findRelatedPost(@Param("postSlug") String postSlug);
+    PostEntity findOneById(Long id);
 }

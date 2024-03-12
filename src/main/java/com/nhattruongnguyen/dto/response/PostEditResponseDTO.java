@@ -2,18 +2,15 @@ package com.nhattruongnguyen.dto.response;
 
 import com.nhattruongnguyen.dto.BaseDTO;
 
-import java.util.Date;
 import java.util.List;
 
-public class PostDetailsResponseDTO extends BaseDTO {
+public class PostEditResponseDTO extends BaseDTO {
     private String title;
     private String description;
     private String thumbnail;
     private String content;
     private String slug;
-    private Long viewCount;
-    private Long likeCount;
-    private List<PostResponseDTO> relatedPosts;
+    private List<Long> categoryIds;
 
     public String getTitle() {
         return title;
@@ -55,27 +52,11 @@ public class PostDetailsResponseDTO extends BaseDTO {
         this.slug = slug;
     }
 
-    public Long getViewCount() {
-        return viewCount;
+    public List<Long> getCategoryIds() {
+        return categoryIds;
     }
 
-    public void setViewCount(Long viewCount) {
-        this.viewCount = viewCount;
-    }
-
-    public Long getLikeCount() {
-        return likeCount;
-    }
-
-    public void setLikeCount(Long likeCount) {
-        this.likeCount = likeCount;
-    }
-
-    public List<PostResponseDTO> getRelatedPosts() {
-        return relatedPosts;
-    }
-
-    public void setRelatedPosts(List<PostResponseDTO> relatedPosts) {
-        this.relatedPosts = relatedPosts;
+    public void setCategoryIds(List<Long> categoryIds) {
+        this.categoryIds = categoryIds;
     }
 }

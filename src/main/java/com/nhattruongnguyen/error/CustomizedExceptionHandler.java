@@ -3,6 +3,7 @@ package com.nhattruongnguyen.error;
 
 import com.google.common.base.Throwables;
 import com.nhattruongnguyen.exception.PageNotFoundException;
+import com.nhattruongnguyen.exception.StorageFileNotFoundException;
 import jakarta.servlet.http.HttpServletResponse;
 import jdk.jshell.spi.ExecutionControl;
 import org.slf4j.Logger;
@@ -25,8 +26,8 @@ class CustomizedExceptionHandler {
     /**
      * Handle exceptions thrown by handlers.
      */
-    @ExceptionHandler(value = PageNotFoundException.class)
-    public void pageNotFoundExceptionHandler(PageNotFoundException exception, WebRequest request, HttpServletResponse response) throws IOException {
+    @ExceptionHandler(value = {PageNotFoundException.class, StorageFileNotFoundException.class})
+    public void notFoundExceptionHandler(RuntimeException exception, WebRequest request, HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.NOT_FOUND.value());
     }
 }

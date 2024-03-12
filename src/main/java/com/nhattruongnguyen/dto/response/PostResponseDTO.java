@@ -2,7 +2,7 @@ package com.nhattruongnguyen.dto.response;
 
 import com.nhattruongnguyen.dto.BaseDTO;
 
-public class PostSearchResponseDTO extends BaseDTO {
+public class PostResponseDTO extends BaseDTO {
     private String title;
     private String description;
     private String thumbnail;

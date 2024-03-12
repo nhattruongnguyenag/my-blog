@@ -1,154 +1,158 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="admin/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="admin/layout">
+
 <head>
     <link rel="stylesheet" th:href="@{/resources/admin/css/admin-post-form.css}">
     <title>Post Edit</title>
 </head>
+
 <body>
-<div
-     layout:fragment="content"
-     class="post-form-edit">
-    <div class="blog-input">
-        <label for="post-title">Tiêu đề bài viết</label>
-        <input id="post-title" type="text"/>
-    </div>
+    <th:block layout:fragment="content">
+        <form th:action="@{/admin/posts}" th:object="${post}" enctype="multipart/form-data" method="POST"
+            class="post-form-edit">
 
-    <div class="blog-textarea">
-        <label for="post-description">Mô tả ngắn</label>
-        <textarea id="post-description" rows="5"></textarea>
-    </div>
+<!--            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
 
-    <button class="thumbnail-btn" data-modal-target="default-modal" data-modal-toggle="default-modal">
-        Thumbnail
-        <i class="fas fa-image"></i>
-    </button>
+            <th:block th:if="${post.id != null}">
+                <input type="hidden" th:field="*{id}">
+            </th:block>
 
-    <div id="default-modal" tabindex="-1" aria-hidden="true"
-         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-2xl max-h-full">
-            <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <!-- Modal header -->
-                <div
-                        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                        Thêm thumbnail
-                    </h3>
-                    <button type="button"
-                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                            data-modal-hide="default-modal">
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                             fill="none" viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                  stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="p-4 md:p-5 space-y-4 grid grid-cols-12">
-                    <div class="col-span-12">
-                        <input type="file" name="thumbnail" id="post-thumbnail">
+            <div class="blog-input">
+                <label for="post-title">Tiêu đề bài viết</label>
+                <input id="post-title" type="text" th:field="*{title}" />
+            </div>
+
+            <div class="blog-textarea">
+                <label for="post-description">Mô tả ngắn</label>
+                <textarea id="post-description" rows="3" th:field="*{description}"></textarea>
+            </div>
+
+            <button type="button" class="thumbnail-btn" data-modal-target="default-modal"
+                data-modal-toggle="default-modal">
+                Thumbnail
+                <i class="fas fa-image"></i>
+            </button>
+
+            <div id="default-modal" tabindex="-1" aria-hidden="true"
+                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative p-4 w-full max-w-2xl max-h-full">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <!-- Modal header -->
+                        <div
+                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                Thêm thumbnail
+                            </h3>
+                            <button type="button"
+                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                data-modal-hide="default-modal">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="p-4 md:p-5 space-y-4 grid grid-cols-12">
+                            <div class="col-span-12">
+                                <input type="file" accept="image/*" name="thumbnailFile" id="post-thumbnail-input">
+                            </div>
+                            <div class="col-span-12">
+                                <img id="post-thumbnail-view"
+                                    th:src="${(baseUrl + 'files/post-thumbnail/' + post.thumbnail)}" alt="img"
+                                    class="w-[100%]">
+                            </div>
+                        </div>
+
+                        <div
+                            class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                            <button data-modal-hide="default-modal" type="button"
+                                class="btn-add-thumbnail btn-post-thumbnail">Xong
+                            </button>
+                            <button type="button" id="btn-post-thumbnail-cancel"
+                                class="btn-cancel btn-post-thumbnail">Huỷ
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-span-12">
-                        <img src="https://vtv1.mediacdn.vn/zoom/640_400/2022/11/30/b22-16697994119911201542911-crop-1669799574167932517806.jpeg"
-                             alt="img" class="w-[100%]">
-                    </div>
-                </div>
-
-                <div
-                        class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button data-modal-hide="default-modal" type="button"
-                            class="btn-add-thumbnail btn-post-thumbnail">Xong
-                    </button>
-                    <button data-modal-hide="default-modal" type="button"
-                            class="btn-cancel btn-post-thumbnail">Huỷ
-                    </button>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="blog-input">
-        <label for="post-slug">Slug</label>
-        <input id="post-slug" type="text"/>
-    </div>
+            <div class="blog-input">
+                <label for="post-slug">Slug</label>
+                <input id="post-slug" type="text" th:field="*{slug}" />
+            </div>
 
-    <div class="blog-selector">
-        <span class="selector-label">Danh mục</span>
-        <input type="checkbox" name="category-toggle" class="selector-toggle" id="category-toggle">
-        <label class="selector-placeholder" for="category-toggle">
-            -- Chọn danh mục --
-            <i class="fas fa-angle-down"></i>
-            <i class="fas fa-angle-up"></i>
-        </label>
-        <ul class="selector">
-            <li><input class="w-full" type="text" placeholder="Thêm danh mục"></li>
+            <div class="blog-selector">
+                <span class="selector-label">Danh mục</span>
+                <input type="checkbox" name="category-toggle" class="selector-toggle" id="category-toggle">
+                <label class="selector-placeholder" for="category-toggle">
+                    -- Chọn danh mục --
+                    <i class="fas fa-angle-down"></i>
+                    <i class="fas fa-angle-up"></i>
+                </label>
+                <ul class="selector">
+                    <li><input class="w-full" type="text" placeholder="Thêm danh mục"></li>
 
-            <li class="selector-item">
-                <input type="checkbox" id="category-1">
-                <label for="category-1">Lập trình</label>
-            </li>
+                    <li th:each="category : ${menu}" class="selector-item">
+                        <input type="checkbox" th:id="${category.slug}" th:field="*{categoryIds}"
+                            th:value="${category.id}">
+                        <label th:for="${category.slug}" th:text="${category.name}" />
+                    </li>
 
-            <li class="selector-item">
-                <input type="checkbox" id="category-2">
-                <label for="category-2">Tiếng Nhật</label>
-            </li>
+                    <li class="selector-item">
+                        <button>
+                            Thêm danh mục
+                        </button>
+                    </li>
+                </ul>
+            </div>
 
-            <li class="selector-item">
-                <button>
-                    Thêm danh mục
+            <textarea id="editor" name="content" th:field="*{content}" />
+
+            <div class="operation-btn">
+                <button class="post-publish-btn" name="action" value="publish">
+                    <th:block th:if="${post.id}" th:text="${'Lưu thay đổi'}" />
+                    <th:block th:unless="${post.id}" th:text="${'Xuất bản'}" />
                 </button>
-            </li>
-        </ul>
-    </div>
+                <th:block th:if="${post.id == null}">
+                    <button class="save-draft-btn" name="action" value="draft">Lưu nháp</button>
+                </th:block>
+            </div>
+        </form>
+        <script th:src="@{/ckfinder/static/ckfinder.js}"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#editor'),
+                    {
+                        ckfinder: {
+                            uploadUrl: "/ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Images&responseType=json"
+                        },
+                        toolbar: [ 'ckfinder', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
+                    }
+                )
+                .catch(error => {
+                    console.error(error);
+                });
 
-    <div class="blog-selector">
-        <span class="selector-label">Tags</span>
-        <input type="checkbox" name="category-toggle" class="selector-toggle" id="tag-selector-toggle">
-        <label class="selector-placeholder" for="tag-selector-toggle">-- Chọn tag --
-            <i class="fas fa-angle-down"></i>
-            <i class="fas fa-angle-up"></i>
-        </label>
+            const postThumbnailInput = document.querySelector('#post-thumbnail-input')
+            const postThumbnailView = document.querySelector('#post-thumbnail-view')
+            const btnPostThumbnailCancel = document.querySelector('#btn-post-thumbnail-cancel')
+            postThumbnailInput.onchange = (event) => {
+                postThumbnailView.src = URL.createObjectURL(event.target.files[0])
+            }
+            btnPostThumbnailCancel.onclick = () => {
+                postThumbnailInput.value = ''
+                postThumbnailView.src = '[[${(baseUrl + 'files / post - thumbnail / ' + post.thumbnail)}]]'
+            }
 
-        <ul class="selector">
-            <li><input class="w-full" type="text" placeholder="Thêm tag"></li>
-
-            <li class="selector-item">
-                <input type="checkbox" id="tag-1">
-                <label for="tag-1">#Lập trình</label>
-            </li>
-
-            <li class="selector-item">
-                <input type="checkbox" id="tag-2">
-                <label for="tag-2">#Tiếng Nhật</label>
-            </li>
-
-            <li class="selector-item">
-                <button>
-                    Thêm tag
-                </button>
-            </li>
-        </ul>
-    </div>
-
-    <textare id="editor"></textare>
-
-    <div class="operation-btn">
-        <button class="post-publish-btn">Xuất bản</button>
-        <button class="save-draft-btn">Lưu nháp</button>
-    </div>
-
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
-</div>
+        </script>
+    </th:block>
 </body>
+
 </html>

@@ -12,7 +12,7 @@ public class CategoryEntity extends BaseEntity {
     private String name;
     @Column(unique = true)
     private String slug;
-    @ManyToMany()
+    @ManyToMany
     @JoinTable(name = "categories_posts",
             joinColumns = @JoinColumn(name = "category_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "post_id", nullable = false)

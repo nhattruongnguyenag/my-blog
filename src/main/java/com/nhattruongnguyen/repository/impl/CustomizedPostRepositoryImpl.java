@@ -34,7 +34,7 @@ public class CustomizedPostRepositoryImpl implements CustomizedPostRepository {
         countQuery.append("\nWHERE 1 = 1");
         finalQuery.append(whereQuery);
         countQuery.append(whereQuery);
-        finalQuery.append("\nORDER BY p.updatedAt");
+        finalQuery.append("\nORDER BY p.createdAt DESC");
 
         int offset = pageable.getPageSize() * pageable.getPageNumber();
 

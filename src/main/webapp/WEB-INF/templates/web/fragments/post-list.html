@@ -7,7 +7,7 @@
 <body>
 <div th:fragment="post-list" th:each="post : ${posts}" class="post-item col-span-12 md:col-span-6 lg:col-span-3">
     <div class="post-thumbnail"><a th:href="@{(${'/' + post.slug})}">
-        <img th:src="${post.thumbnail}"
+        <img th:src="${(baseUrl + 'files/post-thumbnail/' + post.thumbnail)}"
              alt="post-thumbnail">
     </a></div>
     <a  th:href="@{(${'/' + post.slug})}" class="title">
