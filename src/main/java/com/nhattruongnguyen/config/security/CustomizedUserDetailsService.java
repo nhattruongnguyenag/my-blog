@@ -28,6 +28,7 @@ public class CustomizedUserDetailsService implements UserDetailsService {
                 .stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getCode())).collect(Collectors.toList());
 
         CustomizedUserDetails customizedUserDetails = new CustomizedUserDetails(username, userDTO.getPassword(), true, true, true, true, authorities);
+        customizedUserDetails.setId(userDTO.getId());
         customizedUserDetails.setEmail(userDTO.getEmail());
         customizedUserDetails.setName(userDTO.getName());
         customizedUserDetails.setAvatar(userDTO.getAvatar());

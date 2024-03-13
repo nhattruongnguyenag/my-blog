@@ -6,6 +6,7 @@ import com.nhattruongnguyen.dto.response.CategoryResponseDTO;
 import com.nhattruongnguyen.dto.response.PostDetailsResponseDTO;
 import com.nhattruongnguyen.dto.response.PostEditResponseDTO;
 import com.nhattruongnguyen.dto.response.PostResponseDTO;
+import com.nhattruongnguyen.enums.PostAction;
 import com.nhattruongnguyen.exception.PageNotFoundException;
 import com.nhattruongnguyen.properties.StorageProperty;
 import com.nhattruongnguyen.service.CategoryService;
@@ -14,6 +15,7 @@ import com.nhattruongnguyen.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +38,7 @@ public class PostController {
     @Autowired
     private StorageService storageService;
 
-    @GetMapping({"{slug}","{slug}/", "{slug}/page-{page}", "{slug}/page-{page}/"})
+    @GetMapping({"{slug}", "{slug}/", "{slug}/page-{page}", "{slug}/page-{page}/"})
     private String findPostsByCategory(@PathVariable String slug, @PathVariable(required = false) Integer page, Model model) {
         Map<String, Object> params = new HashMap<>();
         params.put("category", slug);
@@ -63,17 +65,45 @@ public class PostController {
     }
 
 
-    @GetMapping({"admin/posts", "admin/posts/", "admin/posts/page-{page}", "admin/posts/page-{page}/"})
-    public String postsPage(@PathVariable(value = "page", required = false) Integer page, Model model) {
-        StringBuffer stringBuffer = new StringBuffer();
+    @GetMapping({"admin/posts/{status}", "admin/posts/{status}", "admin/posts/{status}/page-{page}", "admin/posts/{status}/page-{page}/"})
+    public String postsPage(@PathVariable(value = "page", required = false) Integer page, @PathVariable String status, Model model) {
+        Map<String, Object> params = new HashMap<>();
+
+            if (status.equals(PostAction.TRASH.getName())) {
+            model.addAttribute("postPage", postService.findPostsInTrash(PageRequest.of(page != null && page > 0 ? page - 1 : 0, SystemConstant.POST_LIMIT_ADMIN_PAGE)));
+            params.put("status", PostAction.TRASH.getValue());
+            model.addAttribute("paginationPrefix", "/admin/posts/trash/page-");
+            model.addAttribute("pageTitle", "Thùng rác");
+            model.addAttribute("type", PostAction.TRASH.getName());
+            return "admin/post-list";
+        }
+
+        if (status.equals(PostAction.ACTIVE.getName())) {
+            params.put("status", PostAction.ACTIVE.getValue());
+            model.addAttribute("paginationPrefix", "/admin/posts/publish/page-");
+            model.addAttribute("pageTitle", "Bài viết");
+        } else if (status.equals(PostAction.ACHIEVE.getName())) {
+            params.put("status", PostAction.ACHIEVE.getValue());
+            model.addAttribute("paginationPrefix", "/admin/posts/achieve/page-");
+            model.addAttribute("pageTitle", "Lưu trữ");
+            model.addAttribute("type", PostAction.ACHIEVE.getName());
+        } else if (status.equals(PostAction.DRAFT.getName())) {
+            params.put("status", PostAction.DRAFT.getValue());
+            model.addAttribute("paginationPrefix", "/admin/posts/draft/page-");
+            model.addAttribute("pageTitle", "Nháp");
+        } else {
+            throw new PageNotFoundException();
+        }
+
+        Sort sort = Sort.by("updatedAt").descending();
+
         Page<PostResponseDTO> postPage
-                = postService.findByConditions(new HashMap<>(), PageRequest.of(page != null && page > 0 ? page - 1 : 0, SystemConstant.POST_LIMIT_ADMIN_PAGE));
+                = postService.findByConditions(params, PageRequest.of(page != null && page > 0 ? page - 1 : 0, SystemConstant.POST_LIMIT_ADMIN_PAGE, sort));
         model.addAttribute("postPage", postPage);
-        model.addAttribute("pageTitle", "Bài viết");
         return "admin/post-list";
     }
 
-    @GetMapping({"admin/post-edit","admin/post-edit/", "admin/post-edit/post-id-{id}", "admin/post-edit/post-id-{id}/"})
+    @GetMapping({"admin/post-edit", "admin/post-edit/", "admin/post-edit/post-id-{id}", "admin/post-edit/post-id-{id}/"})
     public String postEditPage(@PathVariable(required = false) Long id, Model model) {
         PostEditResponseDTO post = postService.findPostEditById(id);
 
@@ -90,12 +120,11 @@ public class PostController {
     @PostMapping(value = {"admin/posts", "admin/posts/"})
     public String savePost(final PostSaveRequestDTO dto, final String action) {
         if (action.equalsIgnoreCase("publish")) {
-            dto.setStatus(PUBLISH);
+            dto.setStatus(PostService.ACTIVE);
         } else if (action.equalsIgnoreCase("daft")) {
-            dto.setStatus(DRAFT);
+            dto.setStatus(PostService.DRAFT);
         }
         postService.saveOrUpdate(dto);
         return "redirect:/admin/posts";
     }
-
 }

@@ -6,6 +6,7 @@ import com.nhattruongnguyen.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,7 @@ public class HomeController {
     @GetMapping({"/", "/page-{page}", "/page-{page}/"})
     public String homePage(@PathVariable(value = "page", required = false) Integer page, Model model) {
         Page<PostResponseDTO> postPage
-                = postService.findByConditions(new HashMap<>(), PageRequest.of(page != null && page > 0 ? page - 1 : 0, SystemConstant.POST_LIMIT_PAGE));
+                = postService.findByConditions(new HashMap<>(), PageRequest.of(page != null && page > 0 ? page - 1 : 0, SystemConstant.POST_LIMIT_PAGE, Sort.by("createdAt").descending()));
         model.addAttribute("postPage", postPage);
         return "web/home-page";
     }

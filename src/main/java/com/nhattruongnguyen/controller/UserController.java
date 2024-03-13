@@ -1,21 +1,50 @@
 package com.nhattruongnguyen.controller;
 
+import com.nhattruongnguyen.config.security.SecurityContextUtils;
+import com.nhattruongnguyen.converter.request.ChangePasswordRequestDTO;
+import com.nhattruongnguyen.dto.request.UserProfileSaveRequestDTO;
+import com.nhattruongnguyen.dto.response.UserProfileResponseDTO;
+import com.nhattruongnguyen.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserController {
-    @GetMapping("admin/user-profile")
-    public String userProfilePage() {
+    @Autowired
+    private UserService userService;
+
+    @GetMapping({"admin/user-profile", "admin/user-profile/"})
+    public String userProfilePage(Model model) {
+        model.addAttribute("user", SecurityContextUtils.getUserLogin());
+        model.addAttribute("pageTitle", "Hồ sơ");
         return "admin/user-profile";
     }
 
-    @GetMapping("admin/change-password")
-    public String changePasswordPage() {
+    @PostMapping({"admin/user-profile", "admin/user-profile/"})
+    public String saveUserProfile(final UserProfileSaveRequestDTO dto) {
+        userService.saveUserProfile(dto);
+        return "redirect:/admin/user-profile";
+    }
+
+    @GetMapping({"admin/change-password", "admin/change-password/"})
+    public String changePasswordPage(Model model) {
+        model.addAttribute("pageTitle", "Đổi mật khẩu");
         return "admin/change-password";
     }
 
-    @GetMapping("mb-login")
+    @PostMapping({"admin/change-password", "admin/change-password/"})
+    public String changePassword(ChangePasswordRequestDTO dto) {
+        boolean isSuccess = userService.changePassword(dto);
+        if (isSuccess) {
+            return "admin/change-password";
+        }
+        return "redirect:/admin/change-password?change_password_fail=true";
+    }
+
+    @GetMapping({"mb-login", "mb-login/"})
     public String loginEditPage() {
         return "admin/login";
     }

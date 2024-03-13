@@ -14,20 +14,22 @@ public class PostEntity extends BaseEntity {
     private String description;
     @Column
     private String thumbnail;
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     private String content;
     @Column(unique = true)
     private String slug;
     @Column(name = "view_count")
-    private Long viewCount;
+    private Long viewCount = 0l;
     @Column(name = "like_count")
-    private Long likeCount;
+    private Long likeCount = 0l;
     @Column
     private Integer status = 0;
     @ManyToMany(mappedBy = "posts")
     private List<CategoryEntity> categories = new ArrayList<>();
     @ManyToMany(mappedBy = "posts")
     private List<TagEntity> tags = new ArrayList<>();
+    @OneToOne(mappedBy = "post",cascade = CascadeType.ALL, orphanRemoval = true)
+    private PostTrashEntity postTrash;
 
     public String getTitle() {
         return title;
@@ -107,5 +109,13 @@ public class PostEntity extends BaseEntity {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public PostTrashEntity getPostTrash() {
+        return postTrash;
+    }
+
+    public void setPostTrash(PostTrashEntity postTrash) {
+        this.postTrash = postTrash;
     }
 }

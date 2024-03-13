@@ -52,6 +52,7 @@
             <th:block
                 th:replace="admin/fragments/pagination::pagination(totalPages=${categoryPage.totalPages}, currentPage=${categoryPage.pageable.pageNumber + 1}, urlPrefix=${'/admin/categories/page-'})" />
         </div>
+
         <a class="btn-save" th:href="@{/admin/category-edit}">
             <i class="fas fa-plus"></i>
         </a>

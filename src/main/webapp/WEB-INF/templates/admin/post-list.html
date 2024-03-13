@@ -8,54 +8,118 @@
 
 <body>
 
-<div id="post-table"
-     layout:fragment="content">
+<th:block layout:fragment="content">
     <div class="post-manager-content">
         <table class="blog-table">
             <thead>
-            <th width="40%">Tiêu đề</th>
+            <th width="30%">Tiêu đề</th>
             <th>Tác giả</th>
             <th>Danh mục</th>
             <th>Lượt xem</th>
             <th>Ngày tạo</th>
+            <th>Cập nhật lúc</th>
             </thead>
             <tbody>
             <tr th:each="post : ${postPage.content}">
-                <td width="40%" class="title">
+                <td width="30%" class="title">
                     <label th:for="${'post-setting-toggle-' + post.id}">
-                       <th:block th:text="${post.title}"/>
+                        <th:block th:text="${post.title}"/>
                     </label>
 
                     <input th:id="${'post-setting-toggle-' + post.id}" class="post-setting-toggle" type="checkbox">
 
                     <div class="post-setting">
-                        <button class="btn-post-setting btn-edit"><a th:href="@{(${'/admin/post-edit/post-id-' + post.id})}">Chỉnh sửa</a></button>
-                        <button class="btn-post-setting btn-view"><a th:href="@{(${'/' + post.slug})}">Xem</a></button>
-                        <button class="btn-post-setting btn-trash">Thùng rác</button>
+                        <button class="btn-post-setting btn-view">
+                            <a th:href="@{(${'/' + post.slug})}">Xem</a>
+                        </button>
+
+                        <th:block th:unless="${type == 'trash'}">
+                            <button class="btn-post-setting btn-edit">
+                                <a th:href="@{(${'/admin/post-edit/post-id-' + post.id})}">Chỉnh sửa</a>
+                            </button>
+
+                            <th:block th:unless="${type == 'achieve'}">
+                                <button data-type="achieve" th:data-post-id="${post.id}" class="btn-post-setting"
+                                        type="button"
+                                        data-modal-target="popup-modal" data-modal-toggle="popup-modal">Lưu trữ
+                                </button>
+                            </th:block>
+
+                            <button data-type="trash" th:data-post-id="${post.id}" class="btn-post-setting btn-trash"
+                                    type="button"
+                                    data-modal-target="popup-modal" data-modal-toggle="popup-modal">Thùng rác
+                            </button>
+                        </th:block>
+
+
+                        <th:block th:if="${type == 'trash'}">
+                            <button data-type="restore" th:data-post-id="${post.id}" class="btn-post-setting btn-trash"
+                                    type="button"
+                                    data-modal-target="popup-modal" data-modal-toggle="popup-modal">Khôi phục
+                            </button>
+
+                            <button data-type="delete" th:data-post-id="${post.id}" class="btn-post-setting btn-trash"
+                                    type="button"
+                                    data-modal-target="popup-modal" data-modal-toggle="popup-modal">Xoá
+                            </button>
+                        </th:block>
+
                     </div>
                 </td>
                 <td th:text="${post.createdBy}"/>
                 <td th:text="${post.categories}"/>
                 <td th:text="${post.viewCount}"/>
                 <td>
-                    <span th:text="${#dates.format(post.createdAt, 'dd/MM/yyyy')}"/><br>
+                    <span th:text="${#dates.format(post.createdAt, 'dd/MM/yyyy HH:mm')}"/><br>
                     <th:block th:if="${post.status == 1}">
                         Đã đăng
                     </th:block>
 
-                    <th:block th:unless="${post.status == 1}" th:if="${post.status == 0}">
+                    <th:block th:unless="${post.status == 1}" th:if="${post.status == 2}">
                         Nháp
                     </th:block>
+                </td>
+                <td>
+                    <span th:text="${#dates.format(post.updatedAt, 'dd/MM/yyyy HH:mm')}"/><br>
                 </td>
             </tr>
             </tbody>
         </table>
-        <div th:replace="admin/fragments/pagination::pagination(totalPages=${postPage.totalPages}, currentPage=${postPage.pageable.pageNumber + 1}, urlPrefix=${'/admin/posts/page-'})"/>
+        <th:block th:replace="admin/fragments/confirm-popup::confirm-popup"/>
+        <div th:replace="admin/fragments/pagination::pagination(totalPages=${postPage.totalPages}, currentPage=${postPage.pageable.pageNumber + 1}, urlPrefix=${paginationPrefix})"/>
     </div>
+
     <a class="btn-save" th:href="@{/admin/post-edit}">
         <i class="fas fa-plus"></i>
     </a>
-</div>
+
+    <script>
+        const btnSettings = document.querySelectorAll('.btn-post-setting')
+        const btnApproveDelete = document.querySelector('#btn-approve-delete');
+
+        let url = "[[${baseUrl + 'api/admin/posts'}]]"
+
+        btnSettings.forEach(btnSetting => {
+            btnSetting.addEventListener('click', function () {
+                url += `/${this.dataset.type}/post-id-${this.dataset.postId}`
+            })
+        })
+
+        console.log(url)
+
+        btnApproveDelete.onclick = async () => {
+            const response = await fetch(url, {
+                method: "PUT"
+            })
+
+            if (response.status == 200) {
+                window.location.reload()
+            } else {
+                alert("Hệ thống đang bảo trì, vui lòng thử lại sau")
+            }
+        }
+    </script>
+</th:block>
 
 </body>
 </html>

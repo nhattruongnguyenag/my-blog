@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDTO {
+public class UserDTO extends BaseDTO {
     private String email;
     private String name;
     private String avatar;

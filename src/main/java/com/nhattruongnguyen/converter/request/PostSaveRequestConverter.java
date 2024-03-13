@@ -27,14 +27,19 @@ public class PostSaveRequestConverter extends AbstractConverter<PostEntity, Post
 
         PostEntity postEntity = postRepository.findOneById(dto.getId());
 
-        if (postEntity == null) {
-            return null;
+        if (dto.getId() == null) {
+            postEntity = super.toEntity(dto);
+        } else {
+            postEntity = postRepository.findOneById(dto.getId());
+            BeanUtils.copyProperties(dto, postEntity);
         }
 
-        BeanUtils.copyProperties(dto, postEntity);
-
         for (CategoryEntity category : postEntity.getCategories()) {
-            category.getPosts().removeIf(post -> post.getId() == postEntity.getId());
+            for (int i = 0; i < category.getPosts().size(); i++) {
+                if (category.getPosts().get(i).getId() == postEntity.getId()) {
+                    category.getPosts().remove(i);
+                }
+            }
         }
 
         List<CategoryEntity> categories = categoryRepository.findByIdIn(dto.getCategoryIds());

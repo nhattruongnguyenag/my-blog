@@ -6,32 +6,46 @@
     <title>Hồ sơ</title>
 </head>
 <body>
-<div layout:fragment="content" class="user-profile-page">
-    <div class="grid grid-cols-12 gap-1">
-        <div class="col-span-12 lg:col-span-3 avatar">
-            <img th:src="@{/resources/admin/img/img.jpg}" class="avatar" alt="avatar">
-            <label class="custom-file-upload">
-                <input type="file"/>
-                Chọn ảnh
-            </label>
-        </div>
+<th:block layout:fragment="content">
+    <div class="user-profile-page">
+        <form th:action="@{/admin/user-profile}" th:object="${user}" enctype="multipart/form-data" method="POST" class="grid grid-cols-12 gap-1" >
+            <th:block th:if="${user.id != null}">
+                <input type="hidden" th:field="*{id}">
+            </th:block>
 
-        <div class="col-span-12 lg:col-span-9">
-            <div class="blog-input">
-                <label for="email">Email</label>
-                <input id="email" type="text"/>
+            <div class="col-span-12 lg:col-span-3 avatar">
+                <img id="avatar-view" th:src="@{(${baseUrl + 'files/avatars/' + user.avatar})}" class="avatar" alt="avatar">
+                <label class="custom-file-upload">
+                    <input accept="image/*" id="avatar-input" type="file" name="avatarFile" />
+                    Chọn ảnh
+                </label>
             </div>
 
-            <div class="blog-input">
-                <label for="full-name">Tên người dùng</label>
-                <input id="full-name" type="text"/>
-            </div>
+            <div class="col-span-12 lg:col-span-9">
+                <div class="blog-input">
+                    <label for="email">Email</label>
+                    <input id="email" type="text" th:field="*{email}"/>
+                </div>
 
-            <div class="operation-btn">
-                <button class="user-profile-save">Lưu thay đổi</button>
+                <div class="blog-input">
+                    <label for="full-name">Tên người dùng</label>
+                    <input id="full-name" type="text"  th:field="*{name}"/>
+                </div>
+
+                <div class="operation-btn">
+                    <button class="user-profile-save">Lưu thay đổi</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
-</div>
+    <script>
+        const avatarInput = document.querySelector('#avatar-input')
+        const avatarView = document.querySelector('#avatar-view')
+        avatarInput.onchange = (event) => {
+            avatarView.src = URL.createObjectURL(event.target.files[0])
+        }
+    </script>
+</th:block>
+
 </body>
 </html>
