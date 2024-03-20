@@ -43,8 +43,10 @@ public class CustomizedPostRepositoryImpl implements CustomizedPostRepository {
 
         long totalPage = entityManager.createQuery(countQuery.toString(), Long.class).getSingleResult();
 
-        Sort.Order order = pageable.getSort().iterator().next();
-        finalQuery.append("\nORDER BY ").append("p.").append(order.getProperty()).append(' ').append(order.getDirection().name());
+        if (pageable.getSort() != null && pageable.getSort().iterator().hasNext()) {
+            Sort.Order order = pageable.getSort().iterator().next();
+            finalQuery.append("\nORDER BY ").append("p.").append(order.getProperty()).append(' ').append(order.getDirection().name());
+        }
 
         List<PostEntity> posts = entityManager.createQuery(finalQuery.toString(), PostEntity.class)
                 .setFirstResult(offset).setMaxResults(pageable.getPageSize())

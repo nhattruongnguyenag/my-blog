@@ -1,7 +1,9 @@
 package com.nhattruongnguyen.config;
 
 import com.cksource.ckfinder.servlet.CKFinderServlet;
-import com.nhattruongnguyen.interceptor.MenuHandlerInterceptor;
+import com.fasterxml.jackson.core.json.UTF8JsonGenerator;
+import com.nhattruongnguyen.interceptor.BlogInterceptor;
+import com.nhattruongnguyen.properties.StorageProperties;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletResponse;
 import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
@@ -10,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
@@ -24,18 +28,19 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.List;
+import java.util.Properties;
 
 @Configuration
 @EnableWebMvc
 public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAware, ServletContextInitializer {
+    private static final String MESSAGE_SOURCE = "/WEB-INF/i18n/messages";
+    private static final String VIEWS = "/WEB-INF/templates/";
+
     private ApplicationContext applicationContext;
     @Autowired
-    private MenuHandlerInterceptor menuHandlerInterceptor;
-
-    public SpringWebConfig() {
-        super();
-    }
+    private BlogInterceptor menuHandlerInterceptor;
+    @Autowired
+    private StorageProperties storageProperties;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -50,10 +55,12 @@ public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAwar
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String publicFilesDir = String.format("file:%s/userfiles/", System.getProperty("user.dir"));
+        String publicFilesDir = storageProperties.getLocation();
+        if (!publicFilesDir.endsWith("/")) {
+            publicFilesDir += "/";
+        }
         registry.addResourceHandler("/resources/**", "/userfiles/**")
-                .addResourceLocations("/resources/", "file:C:/Users/nhatt/Documents/Data/upload/")
-        ;
+                .addResourceLocations("/resources/", "file:" + publicFilesDir);
     }
 
     /* **************************************************************** */
@@ -67,7 +74,7 @@ public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAwar
         // resource resolution infrastructure, which is highly recommended.
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(this.applicationContext);
-        templateResolver.setPrefix("/WEB-INF/templates/");
+        templateResolver.setPrefix(VIEWS);
         templateResolver.setSuffix(".html");
         // HTML is the default value, added here for the sake of clarity.
         templateResolver.setTemplateMode(TemplateMode.HTML);
@@ -135,6 +142,23 @@ public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAwar
         }
 
         dispatcher.setMultipartConfig(new MultipartConfigElement(tempDirectory));
+    }
+
+
+    @Bean(name = "messageSource")
+    public MessageSource messageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename(MESSAGE_SOURCE);
+        messageSource.setDefaultEncoding("UTF-8");
+        messageSource.setCacheSeconds(5);
+        return messageSource;
+    }
+
+    @Override
+    public Validator getValidator() {
+        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+        validator.setValidationMessageSource(messageSource());
+        return validator;
     }
 
     @Controller

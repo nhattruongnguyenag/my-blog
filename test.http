@@ -1,0 +1,23 @@
+POST http://localhost:8080/api/login HTTP/1.1
+content-type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuaGF0dHJ1b25nbmd1eWVuYWdAZ21haWwuY29tIiwiaWF0IjoxNzEwNTQxMzM3LCJleHAiOjE3MTA1NDQ5Mzd9.G_W9ythWrt3dDEdsFnVHDBSy-nPeO4vAqMzsVVLALKY
+
+{
+    "email": "nhattruongnguyenag@gmail.com",
+    "password": "123456"
+}
+
+###
+
+GET http://localhost:8080/admin
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuaGF0dHJ1b25nbmd1eWVuYWdAZ21haWwuY29tIiwiaWF0IjoxNzEwNTQxNDEzLCJleHAiOjE3MTA1NDUwMTN9.aazrytq5tTmS_1SJ_QJaloz0sh2-IKt3S8jRIYjcxt0
+
+###
+
+POST http://localhost:8080/api/test
+content-type: application/json
+
+{
+
+}

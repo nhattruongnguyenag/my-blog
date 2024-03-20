@@ -1,9 +1,10 @@
 package com.nhattruongnguyen.config.security;
 
-import com.nhattruongnguyen.config.SystemConstant;
+import com.nhattruongnguyen.properties.BlogProperties;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
@@ -15,6 +16,8 @@ import java.io.IOException;
 @Component
 public class CustomizedSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    @Autowired
+    private BlogProperties blogProperties;
 
     @Override
     protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -27,6 +30,6 @@ public class CustomizedSuccessHandler extends SimpleUrlAuthenticationSuccessHand
     }
 
     public String determineTargetUrl(Authentication authentication) {
-        return SystemConstant.ADMIN_HOME;
+        return blogProperties.getAdminHomePage();
     }
 }

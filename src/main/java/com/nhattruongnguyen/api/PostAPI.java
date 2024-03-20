@@ -1,7 +1,9 @@
 package com.nhattruongnguyen.api;
 
+import com.nhattruongnguyen.dto.request.PostSaveRequestDTO;
 import com.nhattruongnguyen.dto.response.MessageResponseDTO;
 import com.nhattruongnguyen.service.PostService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

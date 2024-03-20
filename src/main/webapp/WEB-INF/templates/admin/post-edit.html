@@ -3,16 +3,15 @@
       layout:decorate="admin/layout">
 
 <head>
+    <script th:src="@{/ckfinder/static/ckfinder.js}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/super-build/ckeditor.js"></script>
     <link rel="stylesheet" th:href="@{/resources/admin/css/admin-post-form.css}">
-    <title>Post Edit</title>
 </head>
 
 <body>
 <th:block layout:fragment="content">
     <form th:action="@{/admin/posts}" th:object="${post}" enctype="multipart/form-data" method="POST"
           class="post-form-edit">
-
-        <!--            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
 
         <th:block th:if="${post.id != null}">
             <input type="hidden" th:field="*{id}">
@@ -21,11 +20,13 @@
         <div class="blog-input">
             <label for="post-title">Tiêu đề bài viết</label>
             <input id="post-title" type="text" th:field="*{title}"/>
+            <p th:if="${#fields.hasErrors('title')}" th:errorclass="error" th:errors="*{title}"/>
         </div>
 
         <div class="blog-textarea">
             <label for="post-description">Mô tả ngắn</label>
             <textarea id="post-description" rows="3" th:field="*{description}"></textarea>
+            <p th:if="${#fields.hasErrors('description')}" th:errorclass="error" th:errors="*{description}"/>
         </div>
 
         <button type="button" class="thumbnail-btn" data-modal-target="default-modal"
@@ -64,7 +65,7 @@
                         </div>
                         <div class="col-span-12">
                             <img id="post-thumbnail-view"
-                                 th:src="${(baseUrl + 'files/post-thumbnail/' + post.thumbnail)}" alt="img"
+                                 th:src="${post.thumbnail} ? ${'/files/post-thumbnail/' + post.thumbnail} : '/resources/core/img/post-default-thumbnail.jpg'" alt="img"
                                  class="w-[100%]">
                         </div>
                     </div>
@@ -85,6 +86,7 @@
         <div class="blog-input">
             <label for="post-slug">Slug</label>
             <input id="post-slug" type="text" th:field="*{slug}"/>
+            <p th:if="${#fields.hasErrors('slug')}" th:errorclass="error" th:errors="*{slug}"/>
         </div>
 
         <div class="blog-selector">
@@ -113,6 +115,7 @@
         </div>
 
         <textarea id="editor" name="content" th:field="*{content}"/>
+        <p th:if="${#fields.hasErrors('content')}" th:errorclass="error" th:errors="*{content}"/>
 
         <div class="operation-btn">
             <button class="post-publish-btn" name="action" value="publish">
@@ -124,9 +127,6 @@
             </th:block>
         </div>
     </form>
-    <script th:src="@{/ckfinder/static/ckfinder.js}"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/super-build/ckeditor.js"></script>
-
     <script>
 
         CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {

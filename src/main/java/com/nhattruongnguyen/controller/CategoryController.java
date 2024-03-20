@@ -1,11 +1,12 @@
 package com.nhattruongnguyen.controller;
 
-import com.nhattruongnguyen.config.SystemConstant;
 import com.nhattruongnguyen.dto.request.CategorySaveRequestDTO;
 import com.nhattruongnguyen.dto.response.CategoryResponseDTO;
+import com.nhattruongnguyen.properties.PaginationProperties;
 import com.nhattruongnguyen.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private PaginationProperties paginationProperties;
 
     @GetMapping({"admin/categories", "admin/categories/", "admin/categories/page-{page}", "admin/categories/page-{page}/"})
     public String categoriesPage(@PathVariable(required = false) Integer page, Model model) {
-        model.addAttribute("categoryPage", categoryService.findAll(PageRequest.of(page != null && page > 0 ? page - 1 : 0, SystemConstant.CATEGORY_LIMIT_ADMIN_PAGE)));
+        Pageable pageable = PageRequest.of(page != null && page > 0 ? page - 1 : 0, paginationProperties.getAdminCategoryNumberItemPerPage());
+        model.addAttribute("categoryPage", categoryService.findAll(pageable));
         model.addAttribute("pageTitle", "Danh mục");
         return "admin/category-list";
     }

@@ -2,6 +2,7 @@ package com.nhattruongnguyen.controller;
 
 import com.nhattruongnguyen.config.security.SecurityContextUtils;
 import com.nhattruongnguyen.converter.request.ChangePasswordRequestDTO;
+import com.nhattruongnguyen.dto.UserDTO;
 import com.nhattruongnguyen.dto.request.UserProfileSaveRequestDTO;
 import com.nhattruongnguyen.dto.response.UserProfileResponseDTO;
 import com.nhattruongnguyen.service.UserService;
@@ -15,10 +16,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private SecurityContextUtils securityContextUtils;
 
     @GetMapping({"admin/user-profile", "admin/user-profile/"})
     public String userProfilePage(Model model) {
-        model.addAttribute("user", SecurityContextUtils.getUserLogin());
+        String email =  securityContextUtils.getUserLogin().getEmail();
+        UserDTO userDTO = userService.findOneByEmailAndActive(email, 1);
+        model.addAttribute("user", userDTO);
         model.addAttribute("pageTitle", "Hồ sơ");
         return "admin/user-profile";
     }

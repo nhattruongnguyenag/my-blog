@@ -2,6 +2,7 @@ package com.nhattruongnguyen.config.security;
 
 import com.nhattruongnguyen.dto.UserDTO;
 import com.nhattruongnguyen.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,11 +29,7 @@ public class CustomizedUserDetailsService implements UserDetailsService {
                 .stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getCode())).collect(Collectors.toList());
 
         CustomizedUserDetails customizedUserDetails = new CustomizedUserDetails(username, userDTO.getPassword(), true, true, true, true, authorities);
-        customizedUserDetails.setId(userDTO.getId());
-        customizedUserDetails.setEmail(userDTO.getEmail());
-        customizedUserDetails.setName(userDTO.getName());
-        customizedUserDetails.setAvatar(userDTO.getAvatar());
+        BeanUtils.copyProperties(userDTO, customizedUserDetails);
         return customizedUserDetails;
-
     }
 }

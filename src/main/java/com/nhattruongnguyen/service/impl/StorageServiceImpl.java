@@ -2,7 +2,7 @@ package com.nhattruongnguyen.service.impl;
 
 import com.nhattruongnguyen.exception.StorageException;
 import com.nhattruongnguyen.exception.StorageFileNotFoundException;
-import com.nhattruongnguyen.properties.StorageProperty;
+import com.nhattruongnguyen.properties.StorageProperties;
 import com.nhattruongnguyen.service.StorageService;
 import com.nhattruongnguyen.utils.HashingUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -26,12 +26,12 @@ import java.util.stream.Stream;
 @Service
 public class StorageServiceImpl implements StorageService {
     @Autowired
-    private StorageProperty storageProperty;
+    private StorageProperties storageProperty;
 
     private Path rootLocation;
 
     @Autowired
-    public StorageServiceImpl(StorageProperty properties) {
+    public StorageServiceImpl(StorageProperties properties) {
 
         if(properties.getLocation().trim().length() == 0){
             throw new StorageException("File upload location can not be Empty.");

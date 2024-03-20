@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="admin/layout">
+<head>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <form th:action="@{/admin/blog/info}" th:object="${blog}" enctype="multipart/form-data" method="POST" class="post-form-edit">
+        <div class="blog-logo-setting">
+            <label for="logo-input">Logo</label>
+            <img id="logo-view" th:src="@{(${'/resources/blog/' + blog.logo})}" alt="logo">
+            <input id="logo-input" type="file" name="logoFile"/>
+        </div>
+
+        <div class="blog-input">
+            <label for="blog-name">Tên blog</label>
+            <input id="blog-name" type="text" name="name" th:value="${blog.name}"/>
+        </div>
+
+        <div class="operation-btn">
+            <button class="post-publish-btn">Lưu thông tin</button>
+        </div>
+    </form>
+
+    <script>
+        const logoInput = document.querySelector('#logo-input')
+        const logoView = document.querySelector('#logo-view')
+        logoInput.onchange = (event) => {
+            logoView.src = URL.createObjectURL(event.target.files[0])
+        }
+    </script>
+</th:block>
+
+</body>
+</html>

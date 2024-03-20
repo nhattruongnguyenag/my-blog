@@ -14,7 +14,7 @@ public class PostEntity extends BaseEntity {
     private String description;
     @Column
     private String thumbnail;
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "LONGTEXT")
     private String content;
     @Column(unique = true)
     private String slug;

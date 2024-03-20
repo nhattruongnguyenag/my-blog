@@ -2,6 +2,9 @@ package com.nhattruongnguyen.interceptor;
 
 import com.nhattruongnguyen.config.security.CustomizedUserDetails;
 import com.nhattruongnguyen.config.security.SecurityContextUtils;
+import com.nhattruongnguyen.dto.UserDTO;
+import com.nhattruongnguyen.dto.response.BlogInfoResponseDTO;
+import com.nhattruongnguyen.service.BlogMetaService;
 import com.nhattruongnguyen.service.CategoryService;
 import com.nhattruongnguyen.utils.CommonUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,19 +15,29 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 @Component
-public class MenuHandlerInterceptor implements HandlerInterceptor {
+public class BlogInterceptor implements HandlerInterceptor {
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private BlogMetaService blogMetaService;
+    @Autowired
+    private SecurityContextUtils securityContextUtils;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         request.setAttribute("menu", categoryService.findAll());
         request.setAttribute("baseUrl", CommonUtils.getBaseUrl(request));
         request.setAttribute("currentUrl", request.getRequestURL().toString());
-        CustomizedUserDetails userLogin = SecurityContextUtils.getUserLogin();
+
+        CustomizedUserDetails userLogin = securityContextUtils.getUserLogin();
+
         if (userLogin != null) {
             request.setAttribute("userLogin", userLogin);
         }
+
+        BlogInfoResponseDTO blogInfo = blogMetaService.getBlogInfo();
+        request.setAttribute("blog", blogInfo);
+
         return true;
     }
 

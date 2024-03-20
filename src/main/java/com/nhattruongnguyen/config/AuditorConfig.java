@@ -2,6 +2,8 @@ package com.nhattruongnguyen.config;
 
 import com.nhattruongnguyen.config.security.CustomizedUserDetails;
 import com.nhattruongnguyen.config.security.SecurityContextUtils;
+import com.nhattruongnguyen.dto.UserDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -18,9 +20,12 @@ class AuditorConfig {
     }
 
     static class AuditorAwareImpl implements AuditorAware<String> {
+        @Autowired
+        private SecurityContextUtils securityContextUtils;
+
         @Override
         public Optional<String> getCurrentAuditor() {
-            CustomizedUserDetails user = SecurityContextUtils.getUserLogin();
+            CustomizedUserDetails user = securityContextUtils.getUserLogin();
             return Optional.of(user != null ? user.getName() : "anonymousUser");
         }
     }

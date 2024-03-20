@@ -4,8 +4,8 @@
         <div class="top-header">
             <div class="logo">
                 <a href="/">
-                    <img th:src="@{/resources/web/img/logo-website.jpg}" alt="logo">
-                    <span>Blog của Trường</span>
+                    <img th:src="@{(${'/resources/blog/' + blog.logo})}" alt="logo">
+                    <span th:text="${blog.name}"/>
                 </a>
             </div>
 

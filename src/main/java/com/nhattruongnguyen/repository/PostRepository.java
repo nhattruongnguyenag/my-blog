@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<PostEntity, Long> {
     PostEntity findBySlug(String slug);
+
     @Query(value = "select p2.* from categories_posts cp1" +
             "\n join categories_posts cp2 on cp1.category_id = cp2.category_id" +
             "\n join posts p1 on cp1.post_id = p1.id" +

@@ -1,7 +1,7 @@
 <header xmlns:th="http://www.thymeleaf.org" th:fragment="header" class="col-span-12 lg:col-span-2 left-side-wrapper">
     <a href="/" class="logo">
-        <img th:src="@{/resources/web/img/logo-website.jpg}" alt="logo">
-        <span>Blog của Trường</span>
+        <img th:src="@{(${'/resources/blog/' + blog.logo})}" alt="logo">
+        <span th:text="${blog.name}"/>
     </a>
 
     <label for="toggle-menu" class="btn-toggle-menu">
@@ -15,7 +15,8 @@
         <li><a th:with='url=${"/admin/posts/draft"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Bài viết nháp</a></li>
         <li><a th:with='url=${"/admin/posts/achieve"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Bài viết lưu trữ</a></li>
         <li><a th:with='url=${"/admin/categories"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Danh mục</a></li>
-        <li><a th:with='url=${"/admin/blog-introduce"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Giới thiệu blog</a></li>
+        <li><a th:with='url=${"/admin/blog/introduce"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Giới thiệu</a></li>
+        <li><a th:with='url=${"/admin/blog/info"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Thông tin Blog</a></li>
         <li><a th:with='url=${"/admin/posts/trash"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Thùng rác</a></li>
     </ul>
 </header>

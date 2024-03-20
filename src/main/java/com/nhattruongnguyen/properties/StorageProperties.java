@@ -2,8 +2,7 @@ package com.nhattruongnguyen.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "upload")
-public class StorageProperty {
+public class StorageProperties {
     private String location;
 
     public String getLocation() {

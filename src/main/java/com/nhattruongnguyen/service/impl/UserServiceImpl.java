@@ -30,6 +30,8 @@ public class UserServiceImpl implements UserService {
     private StorageService storageService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private SecurityContextUtils securityContextUtils;
 
     @Override
     public UserDTO findOneByEmailAndActive(String email, Integer active) {
@@ -60,7 +62,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean changePassword(ChangePasswordRequestDTO dto) {
-        String userLoginEmail = SecurityContextUtils.getUserLogin().getEmail();
+        String userLoginEmail = securityContextUtils.getUserLogin().getEmail();
         UserEntity userEntity = userRepository.findOneByEmailAndActive(userLoginEmail, 1);
 
         boolean isOldPasswordCorrect = passwordEncoder.matches(dto.getOldPassword(), userEntity.getPassword());

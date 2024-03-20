@@ -19,7 +19,7 @@
     <div class="post-details">
         <h1 class="title-detail" th:text="${post.title}" />
 
-        <div id="content">[(${post.content})]</div>
+        <div id="content"><th:block th:utext="${post.content}"/></div>
 
         <p><span class="mr-3 italic">Ngày đăng: <th:block th:text="${#dates.format(post.createdAt, 'dd/MM/yyyy')}"/></span></p>
 
