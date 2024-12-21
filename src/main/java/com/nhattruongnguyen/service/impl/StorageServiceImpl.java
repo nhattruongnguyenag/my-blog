@@ -70,7 +70,7 @@ public class StorageServiceImpl implements StorageService {
     private void createSubFolderIfNotExists(String subFolder) {
         File file = new File(String.join("/", storageProperty.getLocation(), subFolder));
         if (!file.exists()) {
-            file.mkdir();
+            file.mkdirs();
         }
     }
 

@@ -63,27 +63,27 @@ public class BlogMetaServiceImpl implements BlogMetaService {
     @Override
     public boolean saveBlogInfo(BlogInfoSaveRequestDTO dto) {
         Page<BlogMetaEntity> metaEntityPage = blogMetaRepository.findAll(PageRequest.of(0, 1));
+        BlogMetaEntity blogMetaEntity = null;
+
         if (metaEntityPage.getTotalElements() > 0) {
-            BlogMetaEntity blogMetaEntity = metaEntityPage.getContent().get(0);
-
-            if (dto.getName() != null && !dto.getName().isBlank()) {
-                blogMetaEntity.setBlogName(dto.getName());
-            }
-
-            String currentLogo = blogMetaEntity.getBlogLogoUrl();
-
-            try {
-                if (!dto.getLogoFile().isEmpty()) {
-                    String newLogo = storageService.store(dto.getLogoFile(), "blog");
-                    blogMetaEntity.setBlogLogoUrl(newLogo);
-                }
-            } catch (StorageException ex) {
-                blogMetaEntity.setBlogLogoUrl(currentLogo);
-            }
-
-            return blogMetaRepository.save(blogMetaEntity) != null;
+            blogMetaEntity = metaEntityPage.getContent().get(0);
+        } else {
+            blogMetaEntity = new BlogMetaEntity();
         }
 
-        return false;
+        if (dto.getName() != null && !dto.getName().isBlank()) {
+            blogMetaEntity.setBlogName(dto.getName());
+        }
+
+        try {
+            if (!dto.getLogoFile().isEmpty()) {
+                String newLogo = storageService.store(dto.getLogoFile(), "blog");
+                blogMetaEntity.setBlogLogoUrl(newLogo);
+            }
+        } catch (StorageException ex) {
+            blogMetaEntity.setBlogLogoUrl(blogMetaEntity.getBlogLogoUrl());
+        }
+
+        return blogMetaRepository.save(blogMetaEntity) != null;
     }
 }

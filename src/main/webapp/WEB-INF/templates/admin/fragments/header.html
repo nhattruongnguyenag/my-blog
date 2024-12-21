@@ -11,12 +11,12 @@
     <input id="toggle-menu" type="checkbox"/>
 
     <ul class="menu-content">
-        <li><a th:with='url=${"/admin/posts/publish"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Bài viết</a></li>
-        <li><a th:with='url=${"/admin/posts/draft"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Bài viết nháp</a></li>
-        <li><a th:with='url=${"/admin/posts/achieve"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Bài viết lưu trữ</a></li>
+        <li><a th:with='url=${"/admin/posts/publish"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Bài viết xuất bản</a></li>
+        <li><a th:with='url=${"/admin/posts/draft"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Nháp</a></li>
+        <li><a th:with='url=${"/admin/posts/achieve"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Lưu trữ</a></li>
         <li><a th:with='url=${"/admin/categories"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Danh mục</a></li>
         <li><a th:with='url=${"/admin/blog/introduce"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Giới thiệu</a></li>
-        <li><a th:with='url=${"/admin/blog/info"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Thông tin Blog</a></li>
+        <li><a th:with='url=${"/admin/blog/info"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Cài đặt</a></li>
         <li><a th:with='url=${"/admin/posts/trash"}' th:href="@{(${url})}" th:classappend="${currentUrl.contains(url) ? 'active' : ''}">Thùng rác</a></li>
     </ul>
 </header>
