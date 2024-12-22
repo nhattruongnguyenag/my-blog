@@ -1,6 +1,6 @@
 package com.nhattruongnguyen.service;
 
-import com.nhattruongnguyen.dto.request.PostSaveRequestDTO;
+import com.nhattruongnguyen.dto.request.PostCreateRequestDTO;
 import com.nhattruongnguyen.dto.response.PostDetailsResponseDTO;
 import com.nhattruongnguyen.dto.response.PostEditResponseDTO;
 import com.nhattruongnguyen.dto.response.PostResponseDTO;
@@ -21,7 +21,7 @@ public interface PostService {
     PostEditResponseDTO findPostEditById(Long postId);
     List<PostResponseDTO> findPaginated(Pageable pageable);
     boolean like(String slug);
-    Long saveOrUpdate(PostSaveRequestDTO dto);
+    Long saveOrUpdate(PostCreateRequestDTO dto);
     boolean changePostState(Long postId, String action);
 
 }

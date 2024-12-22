@@ -4,7 +4,7 @@ import com.nhattruongnguyen.converter.request.PostSaveRequestConverter;
 import com.nhattruongnguyen.converter.response.PostDetailsResponseConverter;
 import com.nhattruongnguyen.converter.response.PostEditResponseConverter;
 import com.nhattruongnguyen.converter.response.PostSearchResponseConverter;
-import com.nhattruongnguyen.dto.request.PostSaveRequestDTO;
+import com.nhattruongnguyen.dto.request.PostCreateRequestDTO;
 import com.nhattruongnguyen.dto.response.PostDetailsResponseDTO;
 import com.nhattruongnguyen.dto.response.PostEditResponseDTO;
 import com.nhattruongnguyen.dto.response.PostResponseDTO;
@@ -89,7 +89,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Long saveOrUpdate(PostSaveRequestDTO dto) {
+    public Long saveOrUpdate(PostCreateRequestDTO dto) {
         PostEntity entity = postSaveRequestConverter.toEntity(dto);
 
         if (entity == null) {

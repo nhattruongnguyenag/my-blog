@@ -2,13 +2,12 @@ package com.nhattruongnguyen.dto.request;
 
 import com.nhattruongnguyen.validator.anotation.Slug;
 import com.nhattruongnguyen.validator.anotation.Title;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-public class PostSaveRequestDTO {
+public class PostCreateRequestDTO {
     private Long id;
     @Title
     private String title;

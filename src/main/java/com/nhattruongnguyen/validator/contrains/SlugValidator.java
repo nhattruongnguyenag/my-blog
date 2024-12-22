@@ -30,6 +30,7 @@ public class SlugValidator implements ConstraintValidator<Slug, String> {
         }
 
         PostEntity postEntity = postRepository.findBySlug(value);
+
         if (postEntity != null) {
             context.buildConstraintViolationWithTemplate(messageUnique).addConstraintViolation();
             return false;

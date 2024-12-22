@@ -1,7 +1,7 @@
 package com.nhattruongnguyen.converter.request;
 
 import com.nhattruongnguyen.converter.AbstractConverter;
-import com.nhattruongnguyen.dto.request.PostSaveRequestDTO;
+import com.nhattruongnguyen.dto.request.PostCreateRequestDTO;
 import com.nhattruongnguyen.entity.CategoryEntity;
 import com.nhattruongnguyen.entity.PostEntity;
 import com.nhattruongnguyen.repository.CategoryRepository;
@@ -13,14 +13,14 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class PostSaveRequestConverter extends AbstractConverter<PostEntity, PostSaveRequestDTO> {
+public class PostSaveRequestConverter extends AbstractConverter<PostEntity, PostCreateRequestDTO> {
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
     private PostRepository postRepository;
 
     @Override
-    public PostEntity toEntity(PostSaveRequestDTO dto) {
+    public PostEntity toEntity(PostCreateRequestDTO dto) {
         if (dto == null) {
             return null;
         }
@@ -30,8 +30,11 @@ public class PostSaveRequestConverter extends AbstractConverter<PostEntity, Post
         if (dto.getId() == null) {
             postEntity = super.toEntity(dto);
         } else {
-            postEntity = postRepository.findOneById(dto.getId());
-            BeanUtils.copyProperties(dto, postEntity);
+            if (dto.getThumbnail() == null) {
+                BeanUtils.copyProperties(dto, postEntity, "thumbnail");
+            } else {
+                BeanUtils.copyProperties(dto, postEntity);
+            }
         }
 
         for (CategoryEntity category : postEntity.getCategories()) {

@@ -13,6 +13,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = SlugValidator.class)
 @ReportAsSingleViolation
 public @interface Slug {
+    boolean onCreate() default false;
     String message() default "";
     String messageInRange() default "";
     String messageUnique() default "";

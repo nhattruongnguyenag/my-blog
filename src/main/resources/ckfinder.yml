@@ -9,34 +9,32 @@ secureImageUploads: true
 csrfProtection: true
 
 backends:
-  - name: 'default'
+  - name: 'local'
     adapter: 'local'
     baseUrl: 'http://localhost:8080/userfiles'
-    root: 'C:/Users/nhatt/Documents/Data/upload'
-    disallowUnsafeCharacters: true
-    forceAscii: false
-    hideFolders: ['.*', 'CVS', '__thumbs']
-    hideFiles: ['.*']
-    htmlExtensions: ['html', 'htm', 'xml', 'js']
-    overwriteOnUpload: false
-    useProxyCommand: false
+    root: 'E:/upload'
+
+  - name: 'product'
+    adapter: 'local'
+    baseUrl: 'http://192.168.217.129/userfiles'
+    root: '/home/truong/upload'
 
 resourceTypes:
   - name: 'Files'
-    backend: 'default'
+    backend: 'local'
     directory: '/files'
     allowedExtensions: 7z,aiff,asf,avi,bmp,csv,doc,docx,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pptx,pxd,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,sitd,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,xlsx,zip
     deniedExtensions: ~
     maxSize: 0
   - name: 'Images'
-    backend: 'default'
+    backend: 'local'
     directory: '/images'
     allowedExtensions: bmp,jpeg,jpg,png
     deniedExtensions: ~
     maxSize: 0
 
 privateDir:
-  backend: 'default'
+  backend: 'local'
   path: '.ckfinder/'
 
 thumbnails:

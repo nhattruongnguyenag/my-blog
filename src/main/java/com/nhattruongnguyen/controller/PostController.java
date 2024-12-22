@@ -1,6 +1,6 @@
 package com.nhattruongnguyen.controller;
 
-import com.nhattruongnguyen.dto.request.PostSaveRequestDTO;
+import com.nhattruongnguyen.dto.request.PostCreateRequestDTO;
 import com.nhattruongnguyen.dto.response.CategoryResponseDTO;
 import com.nhattruongnguyen.dto.response.PostDetailsResponseDTO;
 import com.nhattruongnguyen.dto.response.PostEditResponseDTO;
@@ -13,7 +13,6 @@ import com.nhattruongnguyen.service.CategoryService;
 import com.nhattruongnguyen.service.PostService;
 import com.nhattruongnguyen.service.StorageService;
 import jakarta.validation.Valid;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -124,8 +123,8 @@ public class PostController {
     }
 
     @PostMapping(value = {"admin/posts", "admin/posts/"})
-    public String savePost(@Valid @ModelAttribute("post") PostSaveRequestDTO saveRequestDTO, BindingResult result, String action, Model model) {
-        if (result.hasErrors()) {
+    public String savePost(@Valid() @ModelAttribute("post") PostCreateRequestDTO saveRequestDTO, BindingResult result, String action, Model model) {
+        if (result.hasErrors() && saveRequestDTO.getId() == null) {
             model.addAttribute("pageTitle", saveRequestDTO.getId() == null ? "Thêm bài viết" : "Cập nhật bài viết");
             return "admin/post-edit";
         }
